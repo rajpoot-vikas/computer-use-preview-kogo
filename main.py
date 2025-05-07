@@ -1,0 +1,92 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import argparse
+import os
+
+from agent import BrowserAgent
+from computers import CloudRunComputer, BrowserbaseComputer, PlaywrightComputer
+
+
+CLOUD_RUN_SCREEN_SIZE = (1920, 1080)
+PLAYWRIGHT_SCREEN_SIZE = (1440, 810)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Run the browser agent with a query.")
+    parser.add_argument(
+        "--query",
+        type=str,
+        required=True,
+        help="The query for the browser agent to execute.",
+    )
+    parser.add_argument(
+        "--api_server",
+        type=str,
+        help="The URL of the API Server for the Cloud Run environment.",
+    )
+    parser.add_argument(
+        "--api_server_key",
+        type=str,
+        help="The API key for the API Server.",
+    )
+    parser.add_argument(
+        "--env",
+        type=str,
+        choices=("cloud-run", "playwright", "browserbase"),
+        default="cloud-run",
+        help="The computer use environment to use.",
+    )
+    parser.add_argument(
+        "--initial_url",
+        type=str,
+        default="https://www.google.com",
+        help="The inital URL loaded for the computer (currently only works for local playwright).",
+    )
+    parser.add_argument(
+        "--highlight_mouse",
+        action="store_true",
+        default=False,
+        help="If possible, highlight the location of the mouse.",
+    )
+    args = parser.parse_args()
+
+    if args.env == "cloud-run":
+        assert args.api_server, "--api_server is required for cloud run."
+        env = CloudRunComputer(
+            api_server=args.api_server,
+            screen_size=CLOUD_RUN_SCREEN_SIZE,
+            api_key=args.api_server_key or os.environ.get("API_SERVER_KEY"),
+        )
+    elif args.env == "playwright":
+        env = PlaywrightComputer(
+            screen_size=PLAYWRIGHT_SCREEN_SIZE,
+            initial_url=args.initial_url,
+            highlight_mouse=args.highlight_mouse,
+        )
+    elif args.env == "browserbase":
+        env = BrowserbaseComputer(screen_size=PLAYWRIGHT_SCREEN_SIZE)
+    else:
+        raise ValueError("Unknown environment: ", args.env)
+
+    with env as browser_computer:
+        agent = BrowserAgent(
+            browser_computer=browser_computer,
+            query=args.query,
+        )
+        agent.agent_loop()
+    return 0
+
+
+if __name__ == "__main__":
+    main()
