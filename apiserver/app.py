@@ -18,7 +18,6 @@ Provides the REST API for integrating with the Computer Use API.
 import asyncio
 import logging
 import time
-import google.cloud.logging
 from fastapi.security import APIKeyHeader
 from fastapi import FastAPI, HTTPException, status, Path, Security, Depends, Request
 from fastapi.responses import StreamingResponse
@@ -39,9 +38,6 @@ import os
 import uvicorn
 import secrets
 from config import Config
-
-client = google.cloud.logging.Client()
-client.setup_logging()
 
 config = Config()
 session_manager = SessionManager(config=config)
