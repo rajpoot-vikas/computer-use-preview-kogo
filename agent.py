@@ -39,8 +39,8 @@ class BrowserAgent:
         browser_computer: Computer,
         query: str,
         model_name: Literal[
-            "models/computer-use-exp"
-        ] = "models/computer-use-exp",
+            "computer-use-exp"
+        ] = "computer-use-exp",
     ):
         self._browser_computer = browser_computer
         self._query = query
