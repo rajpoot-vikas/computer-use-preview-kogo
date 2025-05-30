@@ -39,14 +39,17 @@ class BrowserAgent:
         browser_computer: Computer,
         query: str,
         model_name: Literal[
-            "models/computer-use-exp"
-        ] = "models/computer-use-exp",
+            "computer-use-exp"
+        ] = "computer-use-exp",
     ):
         self._browser_computer = browser_computer
         self._query = query
         self._model_name = model_name
         self._client = genai.Client(
             api_key=os.environ.get("GEMINI_API_KEY"),
+            vertexai=os.environ.get("USE_VERTEXAI", "0").lower() in ["true", "1"],
+            project=os.environ.get("VERTEXAI_PROJECT"),
+            location=os.environ.get("VERTEXAI_LOCATION"),
         )
         self._contents: list[Content] = [
             Content(

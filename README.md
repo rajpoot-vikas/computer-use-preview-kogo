@@ -31,7 +31,9 @@ playwright install-deps chrome
 playwright install chrome
 ```
 
-### 2. Configuration: Set Gemini API Key
+### 2. Configuration
+
+#### Set Gemini API Key (for Gemini Developer API only)
 
 You need a Gemini API key to use the agent:
 
@@ -50,6 +52,30 @@ source .venv/bin/activate
 ```
 
 Replace `YOUR_GEMINI_API_KEY` with your actual key.
+
+#### Setup Vertex AI Client (for Vertex AI API only)
+
+You need to explicitly use Vertex AI, then provide project and location to use the agent:
+
+```bash
+export USE_VERTEXAI=true
+export VERTEXAI_PROJECT="YOUR_PROJECT_ID"
+export VERTEXAI_LOCATION="YOUR_LOCATION"
+```
+
+Or to add this to your virtual environment:
+
+```bash
+echo 'export USE_VERTEXAI=true' >> .venv/bin/activate
+echo 'export VERTEXAI_PROJECT="your-project-id"' >> .venv/bin/activate
+echo 'export VERTEXAI_LOCATION="your-location"' >> .venv/bin/activate
+# After editing, you'll need to deactivate and reactivate your virtual
+# environment if it's already active:
+deactivate
+source .venv/bin/activate
+```
+
+Replace `YOUR_PROJECT_ID` and `YOUR_LOCATION` with your actual project and location.
 
 ### 3. Running the Tool
 
