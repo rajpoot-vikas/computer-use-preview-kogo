@@ -16,7 +16,8 @@ import os
 
 from agent import BrowserAgent
 from computers import BrowserbaseComputer, PlaywrightComputer
-
+import dotenv
+dotenv.load_dotenv() 
 
 PLAYWRIGHT_SCREEN_SIZE = (1440, 900)
 
