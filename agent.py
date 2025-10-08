@@ -61,6 +61,7 @@ def multiply_numbers(x: float, y: float) -> dict:
 
 
 class BrowserAgent:
+    
     def __init__(
         self,
         browser_computer: Computer,
@@ -192,7 +193,7 @@ class BrowserAgent:
             return multiply_numbers(x=action.args["x"], y=action.args["y"])
         else:
             raise ValueError(f"Unsupported function: {action}")
-
+    
     def get_model_response(
         self, max_retries=5, base_delay_s=1
     ) -> types.GenerateContentResponse:
@@ -252,6 +253,7 @@ class BrowserAgent:
             ):
                 try:
                     response = self.get_model_response()
+                    # print("model response : ", response) 
                 except Exception as e:
                     return "COMPLETE"
         else:
@@ -323,7 +325,8 @@ class BrowserAgent:
                 with console.status(
                     "Sending command to Computer...", spinner_style=None
                 ):
-                    fc_result = self.handle_action(function_call)
+                    fc_result = self.handle_action(function_call) 
+                    # print("model result : \n", fc_result) 
             else:
                 fc_result = self.handle_action(function_call)
             if isinstance(fc_result, EnvState):
@@ -408,9 +411,14 @@ class BrowserAgent:
         status = "CONTINUE"
         while status == "CONTINUE":
             status = self.run_one_iteration()
+        
+        self._browser_computer.get_data_from_last_page()
+        self._browser_computer.save_last_page_as_pdf()        
 
     def denormalize_x(self, x: int) -> int:
         return int(x / 1000 * self._browser_computer.screen_size()[0])
 
     def denormalize_y(self, y: int) -> int:
         return int(y / 1000 * self._browser_computer.screen_size()[1])
+
+

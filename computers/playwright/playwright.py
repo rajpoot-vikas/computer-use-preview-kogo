@@ -16,13 +16,16 @@ import termcolor
 import time
 import os
 import sys
+import json
+import base64
+from pathlib import Path
 from ..computer import (
     Computer,
     EnvState,
 )
 import playwright.sync_api
 from playwright.sync_api import sync_playwright
-from typing import Literal
+from typing import Literal, Dict, Any
 
 # Define a mapping from the user-friendly key names to Playwright's expected key names.
 # Playwright is generally good with case-insensitivity for these, but it's best to be canonical.
@@ -80,7 +83,7 @@ class PlaywrightComputer(Computer):
         screen_size: tuple[int, int],
         initial_url: str = "https://www.google.com",
         search_engine_url: str = "https://www.google.com",
-        highlight_mouse: bool = False,
+        highlight_mouse: bool = True,
     ):
         self._initial_url = initial_url
         self._screen_size = screen_size
@@ -303,7 +306,7 @@ class PlaywrightComputer(Computer):
         self._page.wait_for_load_state()
         # Even if Playwright reports the page as loaded, it may not be so.
         # Add a manual sleep to make sure the page has finished rendering.
-        time.sleep(0.5)
+        time.sleep(2)
         screenshot_bytes = self._page.screenshot(type="png", full_page=False)
         return EnvState(screenshot=screenshot_bytes, url=self._page.url)
 
@@ -345,3 +348,175 @@ class PlaywrightComputer(Computer):
         )
         # Wait a bit for the user to see the cursor.
         time.sleep(1)
+
+    def get_data_from_last_page(
+        self,
+        extraction_goal: str = "Extract all relevant information from the page",
+        fields: list[str] = None,
+    ) -> Dict[str, Any]:
+        """
+        Extract structured data from the current page using Gemini.
+
+        Args:
+            extraction_goal: What to extract from the page
+            fields: List of field names to extract (e.g., ['parcel_number', 'owner_name'])
+
+        Returns:
+            Dictionary with extracted data in JSON format
+        """
+        try:
+            # Wait for page to settle
+            time.sleep(2)
+
+            # Get page content as HTML
+            html_content = self._page.content()
+
+            # Convert HTML to Markdown (simplified extraction)
+            # try:
+            import markdownify
+
+            content = markdownify.markdownify(html_content, strip=["a", "img"])
+            # Save markdown content to a file 
+            timestamp = time.strftime("%Y%m%d_%H%M%S")
+            md_file_path = f"./data/markdown/page_{timestamp}.md"
+            md_file_path_obj = Path(md_file_path)
+            md_file_path_obj.parent.mkdir(parents=True, exist_ok=True)
+            with open(md_file_path_obj, "w", encoding="utf-8") as f:
+                f.write(content)
+        # except ImportError:
+            # Fallback to HTML if markdownify not available
+            # print("falling back to html")
+            # content = html_content
+
+            # If no fields specified, return markdown content
+            if not fields:
+                termcolor.cprint("📄 Extracted page content", color="green")
+                return {"content": content, "url": self._page.url}
+
+            # Use Gemini for structured extraction
+            from google import genai
+
+            api_key = os.getenv("GEMINI_API_KEY")
+            if not api_key:
+                termcolor.cprint(
+                    "⚠️  GEMINI_API_KEY not set, returning raw content", color="yellow"
+                )
+                return {"content": content, "url": self._page.url}
+
+            client = genai.Client(api_key=api_key)
+
+            # Create prompt for structured extraction
+            fields_list = ", ".join(fields)
+            prompt = f"""
+                    Your task is to extract specific information from the page content below.
+
+                    Extraction Goal: {extraction_goal}
+
+                    Fields to Extract: {fields_list}
+
+                    Return ONLY a valid JSON object with these exact field names as keys.
+                    If a field is not found, set its value to null.
+                    Do not include any explanation or markdown formatting, just the raw JSON.
+
+                    Page Content:
+                    {content[:10000]}
+
+                    JSON Output:
+            """
+
+            response = client.models.generate_content(
+                model="gemini-2.0-flash-exp", contents=prompt
+            )
+
+            # Parse JSON from response
+            json_text = response.text.strip()
+            if json_text.startswith("```json"):
+                json_text = json_text[7:]
+            if json_text.startswith("```"):
+                json_text = json_text[3:]
+            if json_text.endswith("```"):
+                json_text = json_text[:-3]
+
+            extracted_data = json.loads(json_text.strip())
+            extracted_data["url"] = self._page.url
+
+            termcolor.cprint(
+                f"📊 Extracted structured data: {list(extracted_data.keys())}",
+                color="green",
+            )
+            return extracted_data
+
+        except json.JSONDecodeError as e:
+            termcolor.cprint(f"⚠️  Failed to parse JSON: {e}", color="yellow")
+            return {
+                "content": content,
+                "url": self._page.url,
+                "error": "Failed to parse JSON",
+            }
+        except Exception as e:
+            termcolor.cprint(f"❌ Error extracting data: {e}", color="red")
+            return {"error": str(e), "url": self._page.url}
+
+    def save_last_page_as_pdf(
+        self, file_path: str = None, return_base64: bool = False
+    ) -> Dict[str, Any]:
+        """
+        Save the current page as PDF.
+
+        Args:
+            file_path: Path to save PDF file. If None, generates filename from URL
+            return_base64: If True, returns base64 encoded PDF data
+
+        Returns:
+            Dictionary with success status, file path, and optionally base64 data
+        """
+        try:
+            # Generate default filename if not provided
+            if not file_path:
+                timestamp = time.strftime("%Y%m%d_%H%M%S")
+                file_path = f"./data/pdfs/page_{timestamp}.pdf"
+
+            # Ensure directory exists
+            file_path_obj = Path(file_path)
+            file_path_obj.parent.mkdir(parents=True, exist_ok=True)
+
+            # Default PDF options
+            pdf_options = {
+                "format": "A4",
+                "print_background": True,
+                "margin": {
+                    "top": "1cm",
+                    "right": "1cm",
+                    "bottom": "1cm",
+                    "left": "1cm",
+                },
+            }
+
+            # Generate PDF
+            pdf_bytes = self._page.pdf(**pdf_options)
+
+            # Save to file
+            with open(file_path_obj, "wb") as f:
+                f.write(pdf_bytes)
+
+            result = {
+                "success": True,
+                "file_path": str(file_path_obj.absolute()),
+                "url": self._page.url,
+                "size_bytes": len(pdf_bytes),
+            }
+
+            # Add base64 if requested
+            if return_base64:
+                result["base64"] = base64.b64encode(pdf_bytes).decode("utf-8")
+
+            termcolor.cprint(
+                f"📄 Successfully saved PDF to: {file_path_obj}", color="green"
+            )
+            return result
+
+        except Exception as e:
+            error_msg = f"Failed to save PDF: {str(e)}"
+            termcolor.cprint(f"❌ {error_msg}", color="red")
+            return {"success": False, "error": error_msg, "url": self._page.url}
+
