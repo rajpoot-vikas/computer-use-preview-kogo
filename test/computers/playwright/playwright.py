@@ -352,7 +352,7 @@ class PlaywrightComputer(Computer):
     def get_data_from_last_page(
         self,
         extraction_goal: str = "Extract all relevant information from the page",
-        fields: list[str] = None,
+        fields: Dict[str, str] = None,
     ) -> Dict[str, Any]:
         """
         Extract structured data from the current page using Gemini.
@@ -376,6 +376,11 @@ class PlaywrightComputer(Computer):
             import markdownify
 
             content = markdownify.markdownify(html_content, strip=["a", "img"])
+            for iframe in self._page.frames:
+                if iframe.url != self._page.url and not iframe.url.startswith('data:'):
+                    content += f'\n\nIFRAME {iframe.url}:\n'
+                    content += markdownify.markdownify(iframe.content())
+
             # Save markdown content to a file 
             timestamp = time.strftime("%Y%m%d_%H%M%S")
             md_file_path = f"./data/markdown/page_{timestamp}.md"
@@ -406,26 +411,35 @@ class PlaywrightComputer(Computer):
             client = genai.Client(api_key=api_key)
 
             # Create prompt for structured extraction
-            fields_list = ", ".join(fields)
+            # fields_list = ", ".join(fields)
+            # Save prompt to file
+            timestamp = time.strftime("%Y%m%d_%H%M%S")
+            prompt_file_path = f"./data/prompts/extraction_prompt_{timestamp}.txt"
+            prompt_file_path_obj = Path(prompt_file_path)
+            prompt_file_path_obj.parent.mkdir(parents=True, exist_ok=True)
+            
             prompt = f"""
                     Your task is to extract specific information from the page content below.
 
                     Extraction Goal: {extraction_goal}
 
-                    Fields to Extract: {fields_list}
+                    Fields to Extract: {fields}
 
                     Return ONLY a valid JSON object with these exact field names as keys.
                     If a field is not found, set its value to null.
                     Do not include any explanation or markdown formatting, just the raw JSON.
 
                     Page Content:
-                    {content[:10000]}
+                    {content}
 
                     JSON Output:
             """
+            
+            with open(prompt_file_path_obj, "w", encoding="utf-8") as f:
+                f.write(prompt)
 
             response = client.models.generate_content(
-                model="gemini-2.0-flash-exp", contents=prompt
+                model="gemini-2.0-flash", contents=prompt
             )
 
             # Parse JSON from response
@@ -440,8 +454,10 @@ class PlaywrightComputer(Computer):
             extracted_data = json.loads(json_text.strip())
             extracted_data["url"] = self._page.url
 
+            print("\033[92m extracted data : ", extracted_data, "\033[0m")
             termcolor.cprint(
-                f"📊 Extracted structured data: {list(extracted_data.keys())}",
+                # f"📊 Extracted structured data: {list(extracted_data.keys())}",
+                f"📊 Extracted structured data: {extracted_data}",
                 color="green",
             )
             return extracted_data

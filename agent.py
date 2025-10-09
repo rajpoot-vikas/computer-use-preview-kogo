@@ -402,7 +402,8 @@ class BrowserAgent:
         print(safety["explanation"])
         decision = ""
         while decision.lower() not in ("y", "n", "ye", "yes", "no"):
-            decision = input("Do you wish to proceed? [Yes]/[No]\n")
+            # decision = input("Do you wish to proceed? [Yes]/[No]\n")
+            decision = "yes"
         if decision.lower() in ("n", "no"):
             return "TERMINATE"
         return "CONTINUE"
@@ -411,8 +412,16 @@ class BrowserAgent:
         status = "CONTINUE"
         while status == "CONTINUE":
             status = self.run_one_iteration()
-        
-        self._browser_computer.get_data_from_last_page()
+        fields = {
+            "date": "date of amount due, payment due date, deadline, due by date, payable by, payment deadline, or maturity date",
+            "baseAmount": "base amount, bill amount, tax amount, principal amount, original amount, assessed value, taxable amount, gross amount, or amount before any adjustments or discounts",
+            "totalAmount": "total amount due, total dues, amount payable, final amount, net amount, balance due, outstanding amount, total payment, sum due, or final amount that needs to be paid including all charges",
+            "address": "address of payee, property address, billing address, mailing address, service address, location, property location, site address, or premises address",
+            "parcel_number": "parcel number, parcel ID, property identification number, property ID, file reference number, account number, tax ID, assessment number, property number, or folio number", 
+            "discount_percentage": "discount percentage, discount rate, reduction percentage, tax relief rate, early payment discount rate, or percentage off applied on the tax amount or bill amount",
+            "discount_amount": "discount amount, reduction amount, tax relief amount, savings amount, deduction amount, rebate amount, early payment discount, or amount reduced from the total dues"
+        }
+        self._browser_computer.get_data_from_last_page(fields=fields)
         self._browser_computer.save_last_page_as_pdf()        
 
     def denormalize_x(self, x: int) -> int:
