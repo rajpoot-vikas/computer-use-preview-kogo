@@ -21,7 +21,8 @@ county_data_10_web = {
         "parcel3": "111500006",
         "description": "Need to bring the data based installment number",
         "payment_type": "Semi Annual",
-        "duration": "1.30 sec"
+        "duration": "1.30 sec", 
+        "Reason" : "working..."
     },
     3: {
         "agency_number": "180350000",
@@ -31,7 +32,9 @@ county_data_10_web = {
         "parcel2": "18-07-33-426-010.000-003",
         "description": "Need to bring the data based installment number",
         "payment_type": "Semi Annual",
-        "duration": "1.40 sec"
+        "duration": "1.40 sec",
+        "Reason" : "working... (after lots of prompt improvement.)"
+        
     },
     4: {
         "agency_number": "211790000",
@@ -41,7 +44,8 @@ county_data_10_web = {
         "parcel2": "03000-00-014",
         "description": "Agent was not able click (Workflow execution failed: Deterministic step 2 (click) failed)",
         "payment_type": "Discount annual",
-        "duration": "4:30 sec"
+        "duration": "4:30 sec", 
+        "reason": "not able to navigate after multiple prompt changes. "
     },
     5: {
         "agency_number": "340133003",

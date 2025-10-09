@@ -306,7 +306,7 @@ class PlaywrightComputer(Computer):
         self._page.wait_for_load_state()
         # Even if Playwright reports the page as loaded, it may not be so.
         # Add a manual sleep to make sure the page has finished rendering.
-        time.sleep(2)
+        time.sleep(8) 
         screenshot_bytes = self._page.screenshot(type="png", full_page=False)
         return EnvState(screenshot=screenshot_bytes, url=self._page.url)
 
@@ -460,6 +460,15 @@ class PlaywrightComputer(Computer):
                 f"📊 Extracted structured data: {extracted_data}",
                 color="green",
             )
+            
+            timestamp = time.strftime("%Y%m%d_%H%M%S")
+            ex_data = f"./data/ext/extraction_data_{timestamp}.txt"
+            ex_data_obj = Path(ex_data)
+            ex_data_obj.parent.mkdir(parents=True, exist_ok=True)
+            
+            with open(ex_data_obj, "w", encoding="utf-8") as f:
+                f.write(str(extracted_data))
+        
             return extracted_data
 
         except json.JSONDecodeError as e:

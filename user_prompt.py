@@ -76,19 +76,23 @@ Minimal robustness:
 
 USER_FLEXIBLE_PROMPT = """
 **Objective:**
-Flexibly navigate diverse tax websites to find and view parcel details for {parcel_number}. This may require a sequence of actions for a single logical step.
+Flexibly navigate diverse tax websites to find and view parcel details for {parcel_number}, and then locate the tax/payment information. This may require a sequence of actions for a single logical step.
 
 **Core Principles:**
 - **Adaptability:** Assume websites vary. Adapt to different layouts, labels, and multi-step workflows.
 - **Resilience:** Handle common web obstacles like pop-ups, varied navigation, and search result formats.
-- **Efficiency:** Prioritize actions that lead directly to the parcel details.
 
 **Workflow Steps:**
 
 1.  **Navigate to Search Portal (If Necessary):**
-   - **Goal:** Reach the property search form.
-   - **Actions:** Wait for the page to load. If not on a search page, look for links like "Property Search," "Tax Records," "Parcel Search," or "Assessment Data." This may involve one or more clicks to navigate through introductory pages or menus to reach the search portal.
-
+   - **Goal:** Reach the property search form from the landing page.
+   - **Condition:** Perform this step only if the initial page does not contain a search form.
+   - **Actions:**
+      - Scan the page for navigation elements like menus, buttons, or links with keywords such as "Search," "Property," "Tax," "Parcel," or "Assessments."
+      - This may be a multi-step process. you may need to click on buttons multiple time. 
+      - Continue clicking through relevant links until you arrive at a page containing the search form (i.e., a page with input fields for parcel number, address, etc.).
+   - **Note:** If the initial page is already the search portal, skip this step and proceed to Step 2, and also don't do more then 5 action/steps to complete this step.
+   
 2.  **Prepare the Search Form:**
    - **Goal:** Make the search form accessible and ready for input.
    - **Actions:** Wait for the page to load. Dismiss any initial overlays, disclaimers, or cookie banners by clicking "Accept," "Agree," "OK," or a close icon ('X'). This might be a multi-step process if there are several modals.
@@ -96,23 +100,27 @@ Flexibly navigate diverse tax websites to find and view parcel details for {parc
 3.  **Configure Search Criteria:**
    - **Goal:** Correctly set all required fields before searching.
    - **Actions:**
-     - **Search Type:** If a choice is offered (e.g., "By Parcel," "By Owner"), select the option for "Parcel Number," "Account ID," or a similar identifier.
-     - **Year Selection:** If a tax year selector is present, set it to `{search_year}`.
-     - **Parcel Input:** Locate the input field (e.g., "Parcel Number," "Account Number," "Property ID"). Enter `{parcel_number}`.
-     - **Self-Correction:** If any selection (like year or search type) clears other fields, re-enter the necessary information. Ensure all required fields are correctly populated before proceeding.
+    - **Search Type:** If a choice is offered (e.g., "By Parcel," "By Owner"), select the option for "Parcel Number," "Account ID," or a similar identifier.
+    - **Year Selection:** If a tax year selector is present, set it to `{search_year}`.
+    - **Parcel Input:** Locate the input field (e.g., "Parcel Number," "Account Number," "Property ID", "MAP NUMBER"). Enter `{parcel_number}`.
+    - **Self-Correction:** If any selection (like year or search type) clears other fields, re-enter the necessary information. Ensure all required fields are correctly populated before proceeding.
 
 4.  **Execute Search:**
    - **Goal:** Trigger the search and wait for results.
    - **Actions:** Click the "Search" or "Submit" button. If that fails or is not available, press the 'Enter' key in the parcel number input field as an alternative. Wait for the results to load.
 
-5.  **Process Search Results:**
-   - **Goal:** Locate and select the correct parcel from the search results.
-   - **Actions:**
-     - **No Results:** If no results are found, the task is complete with a "not found" status.
-     - **Multiple Results:** If a list is shown, scan for an exact match of `{parcel_number}`. This may require scrolling or clicking through pagination ("Next," page numbers).
-     - **Select Match:** Once the correct entry is found, click the corresponding link or button (e.g., "View Details," "Select," or the parcel number itself) to proceed to the details page.
+5.  **Process Search Outcome:**
+   - **Goal:** Navigate from the search outcome to the specific parcel's tax information.
+   - **Scenario A: List of Results:** If the search displays a list of results, scan for an exact match of `{parcel_number}`. Click the corresponding link or button (e.g., "View Details," "Select," or the parcel number itself) to open the details page.
+   - **Scenario B: Direct to Details:** If the search leads directly to a parcel details page, this step is complete.
+   - **Scenario C: No Results:** If no results are found, the task is complete with a "not found" status.
 
-6.  **Confirm and Finalize:**
-   - **Goal:** Verify that the correct parcel's detail page is displayed.
-   - **Actions:** Wait for the parcel details page to load. Confirm that the page displays detailed information for `{parcel_number}`. Once the details are visible, the task is successfully completed.
+6.  **Locate Tax Information:**
+   - **Goal:** From the parcel details page, find the section or page with tax payment information.
+   - **Actions:** First, check if tax information (like "Amount Due", "Total Tax", "Taxes Payable") is already visible on the current page. If it is, this step is complete. If not, look for and click on links, tabs, or buttons labeled "Taxes", "Tax Bill", "Payments", "Amount Due", "Payable", "Billing", or similar terms to navigate to the tax information page. This may require navigating through one or more pages.
+
+7.  **Confirm and Finalize:**
+   - **Goal:** Verify that the page containing tax due information is displayed.
+   - **Actions:** Wait for the tax/payment page to load. Once a page containing terms like "Amount Due", "Total Tax", "Taxes Payable", or similar financial details for the correct parcel is visible, the task is successfully completed. Do not perform any further actions.
+
 """

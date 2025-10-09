@@ -22,7 +22,8 @@ dotenv.load_dotenv()
 
 from county_data_dict import county_data_10_web
 
-PLAYWRIGHT_SCREEN_SIZE = (1200, 800)
+PLAYWRIGHT_SCREEN_SIZE = (1366, 1400)
+
 
 ENV = "playwright"  # Options: "playwright" or "browserbase"
 HIGHLIGHT_MOUSE = False
@@ -78,13 +79,13 @@ if __name__ == "__main__":
     # global index
     # for index in range(25, 26):
     print("\n\n\n\n") 
-    index = 2
+    index = 4
     print(f" \033[92m STARTING OF NEW RECORDING INDEX {index} \033[0m")
 
     initial_url = county_data_10_web[index]["website"] 
-    parcel_number = county_data_10_web[index]["parcel"] 
+    parcel_number = county_data_10_web[index]["parcel1"] 
     search_year = "2024"
     
     run(initial_url, parcel_number, search_year)
 
-
+ 
