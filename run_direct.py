@@ -25,8 +25,8 @@ from county_data_dict import county_data_10_web, new_county_data_next60_days, co
 PLAYWRIGHT_SCREEN_SIZE = (1366, 1400)
 
 
-ENV = "playwright"  # Options: "playwright" or "browserbase"
-HIGHLIGHT_MOUSE = False
+ENV = "playwright" 
+HIGHLIGHT_MOUSE = True
 MODEL = "gemini-2.5-computer-use-preview-10-2025"
 
 
@@ -86,7 +86,7 @@ if __name__ == "__main__":
     print("\n\n\n\n") 
     print("#"*100) 
     print("#"*100) 
-    index = 20
+    index = 21
     print(f" \033[92m STARTING OF NEW RECORDING INDEX {index} \033[0m") 
 
     initial_url = county_data_mixed_status[index]["website"] 

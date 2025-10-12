@@ -83,7 +83,7 @@ class PlaywrightComputer(Computer):
         screen_size: tuple[int, int],
         initial_url: str = "https://www.google.com",
         search_engine_url: str = "https://www.google.com",
-        highlight_mouse: bool = True,
+        highlight_mouse: bool = False,
     ):
         self._initial_url = initial_url
         self._screen_size = screen_size

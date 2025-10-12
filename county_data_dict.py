@@ -354,6 +354,7 @@ county_data_mixed_status = {
         "county": None,
         "year": None
     },
+    
     7: {
         "agency_number": "130890000",
         "agency_name": "DeKalb County GA",
@@ -441,7 +442,7 @@ county_data_mixed_status = {
         "year": None
     },
     
-    # Other issues
+    # Other issues 
     14: {
         "agency_number": "181110000",
         "agency_name": "Newton County IN",
@@ -492,18 +493,18 @@ county_data_mixed_status = {
         "county": None,
         "year": None
     },
-    18: {
-        "agency_number": "180970000",
-        "agency_name": "Marion County IN",
-        "website": "https://www.indy.gov/agency/marion-county-treasurers-office",
-        "parcel1": "4038626",
-        "parcel2": "",
-        "status": "CAPTION",
-        "reason": "",
-        "state": None,
-        "county": None,
-        "year": None
-    },
+    # 18: {
+    #     "agency_number": "180970000",
+    #     "agency_name": "Marion County IN",
+    #     "website": "https://www.indy.gov/agency/marion-county-treasurers-office",
+    #     "parcel1": "4038626",
+    #     "parcel2": "",
+    #     "status": "CAPTION",
+    #     "reason": "",
+    #     "state": None,
+    #     "county": None,
+    #     "year": None
+    # },
     19: {
         "agency_number": "132450000",
         "agency_name": "Richmond County GA",
@@ -523,7 +524,7 @@ county_data_mixed_status = {
         "agency_number": "40130000",
         "agency_name": "Maricopa County",
         "website": "http://www.treasurer.maricopa.gov/",
-        "parcel1": "11139292 1",
+        "parcel1": "111-39-292-1",
         "parcel2": "",
         "status": "not working",
         "reason": "",
