@@ -51,6 +51,9 @@ Flexibly navigate diverse tax websites to find and view parcel details for {parc
 
 """
 
+
+
+
 USER_FLEXIBLE_STATE_COUNTY_PROMPT = """
 **Objective:**
 Flexibly navigate diverse tax websites to find and view parcel details for {parcel_number} for a given {state} and {county}, and then locate the tax/payment information. This may require a sequence of actions for a single logical step.
@@ -58,7 +61,11 @@ Flexibly navigate diverse tax websites to find and view parcel details for {parc
 **Core Principles:**
 - **Adaptability:** Assume websites vary. Adapt to different layouts, labels, and multi-step workflows.
 - **Resilience:** Handle common web obstacles like pop-ups, varied navigation, and search result formats.
-- **State-Change Verification:** After performing an action (like a click), verify that the page state has changed. If it hasn't, retry the action once.
+- **Site Constraint**: Remain on the provided website domain. Do not navigate to external sites like Google to find information.
+- **Failure Condition**: If tax information cannot be located after following all relevant steps, conclude the task with a "not found" status.
+- **State-Change Verification**: After performing an action (like a click), verify that the page state has changed. If it hasn't, retry the action once.
+
+
 
 **Workflow Steps:**
 

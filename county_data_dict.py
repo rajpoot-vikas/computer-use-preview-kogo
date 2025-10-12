@@ -55,7 +55,8 @@ county_data_10_web = {
         "parcel2": "970-1-C9904",
         "description": "Workflow execution failed: Invalid workflow inputs: 3 validation - Multiple boxes",
         "payment_type": "Quaterly",
-        "duration": ".30sec"
+        "duration": ".30sec", 
+        "reason": "not working Multi box inputs"
     },
     6: {
         "agency_number": "180970000",
@@ -65,7 +66,8 @@ county_data_10_web = {
         "parcel2": "4038627",
         "description": "Data is not getting",
         "payment_type": "Annual",
-        "duration": "1.40 sec"
+        "duration": "1.40 sec",
+        "reason": "partially working, able to navigate till details page, but data filtering not happening"
     },
     7: {
         "agency_number": "212170000",
@@ -75,7 +77,8 @@ county_data_10_web = {
         "parcel2": "13-010",
         "description": "Workflow execution failed: Deterministic step 1 (navigation) failed even after fallback",
         "payment_type": "Discount annual",
-        "duration": "4:30 sec"
+        "duration": "4:30 sec", 
+        "reason": "Working fine"
     },
     8: {
         "agency_number": "181110000",
@@ -85,7 +88,8 @@ county_data_10_web = {
         "parcel2": "56-12-18-441-040.000-007",
         "description": "GateWay Timeout",
         "payment_type": "",
-        "duration": "5.14 sec"
+        "duration": "5.14 sec", 
+        "reason" : "request blocked"
     },
     9: {
         "agency_number": "290470000",
@@ -95,7 +99,9 @@ county_data_10_web = {
         "parcel2": "1918000301100",
         "description": "Able to get the data",
         "payment_type": "Non Escrow",
-        "duration": "1.52 sec"
+        "duration": "1.52 sec", 
+        "reason": "website not loading"
+        
     },
     10: {
         "agency_number": "10740000",
@@ -105,7 +111,8 @@ county_data_10_web = {
         "parcel2": "09 00 27 3 000 102.000",
         "description": "Able to get the data (parcel number missing)",
         "payment_type": "Annual",
-        "duration": "2.10 sec"
+        "duration": "2.10 sec", 
+        "reason": " accesss denied "
     },
 }
 
@@ -219,11 +226,312 @@ data_web = {
     25: {
         "website": "https://ipn.paymentus.com/rotp/HNPN",
         "parcel": "0602724240008"
-    },
-    
+    }, 
 }
 
 
+
+
+new_county_data_next60_days = {
+
+    2: {
+        "website": "https://billpay.forte.net/howardcointreasurer/",
+        "parcel": "34-03-24-276-001 000-002",
+    },
+    # 3: {
+    #     "website": "https://www.indy.gov/agency/marion-county-treasurers-office",
+    #     "parcel": "4038626",
+    # },
+    4: {
+        "website": "https://richmondcountyga.governmentwindow.com/tax.html",
+        "parcel": "012-0-019-22-0",
+    },
+    5: {
+        "website": "https://enoticesonline.com/dlw",
+        "parcel": "18-07-33-426-010.000-003",
+    },
+    6: {
+        "website": "http://www.treasurer.maricopa.gov/",
+        "parcel": "11139292 1",
+    },
+    7: {
+        "website": "https://www.invoicecloud.com/portal/(S(g2irjykixzx5u33xd4qeyojo))/2/Site2.aspx?G=f92bbd52-0986-4971-8f81-6e44801f28d6",
+        "parcel": "4038626",
+        
+    }
+}
+
+
+# Additional County Data - Mixed Status
+county_data_mixed_status = {
+    # Working entries
+    1: {
+        "agency_number": "171570000",
+        "agency_name": "Randolph County IL",
+        # "website": "https://randolphcountyil.gov/",
+        "website": "https://www.govtechtaxpro.com/parceldetail.php",
+        "parcel1": "18-104-014-00",
+        "parcel2": "06-059-007-00",
+        "status": "working fine",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    2: {
+        "agency_number": "130590000",
+        "agency_name": "Athens Clarke County",
+        "website": "https://athensclarkecounty.governmentwindow.com/tax.html",
+        "parcel1": "181 010C",
+        "parcel2": "233A3 A045",
+        "status": "caption not working",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    3: {
+        "agency_number": "180890000",
+        "agency_name": "Lake County IN",
+        "website": "https://in-lake.publicaccessnow.com/PropertyTax/TaxSearch.aspx",
+        "parcel1": "45-08-36-254-003.000-018",
+        "parcel2": "",
+        "status": "working",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    4: {
+        "agency_number": "10890000",
+        "agency_name": "Madison County AL",
+        # "website": "http://madisoncountyal.gov",
+        "website": "https://madisonproperty.countygovservices.com/Property/Property/Search",
+        "parcel1": "14-09-32-2-000-046.000",
+        "parcel2": "",
+        "status": "working",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    5: {
+        "agency_number": "60730000",
+        "agency_name": "San Diego County",
+        "website": "https://wps.sdttc.com/WebPayments/CoSDTreasurer2/search",
+        "parcel1": "211-130-04-00",
+        "parcel2": "",
+        "status": "working",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": 2025
+    },
+    
+    # Partially working entries
+    6: {
+        "agency_number": "130510000",
+        "agency_name": "Chatham County",
+        "website": "https://www.chathamtax.org/PT/Search/Disclaimer.aspx?FromUrl=../search/commonsearch.aspx?mode=realprop",
+        "parcel1": "20647 03004A",
+        "parcel2": "",
+        "status": "working",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": 2025
+        
+    },
+    20: {
+        "agency_number": "180350000",
+        "agency_name": "Delaware County IN",
+        "website": "https://enoticesonline.com/dlw",
+        "parcel1": "18-07-33-426-010.000-003",
+        "parcel2": "",
+        "status": "working",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    7: {
+        "agency_number": "130890000",
+        "agency_name": "DeKalb County GA",
+        "website": "https://propertyappraisal.dekalbcountyga.gov/search/commonsearch.aspx?mode=realprop",
+        "parcel1": "18 046 02 058",
+        "parcel2": "",
+        "status": "not working",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": 2025
+    },
+    
+    # Website blocked entries
+    8: {
+        "agency_number": "100030000",
+        "agency_name": "New Castle DE",
+        "website": "https://www.newcastlede.gov/232/Taxes",
+        "parcel1": "901700035",
+        "parcel2": "",
+        "status": "website blocked",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    9: {
+        "agency_number": "131210000",
+        "agency_name": "Fulton County",
+        "website": "https://www.fultoncountytaxes.org/",
+        "parcel1": "14 -0045-0003-097-1",
+        "parcel2": "",
+        "status": "website blocked",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    10: {
+        "agency_number": "170550000",
+        "agency_name": "Franklin County IL",
+        "website": "https://franklincountyil.gov/treasurers-office/",
+        "parcel1": "12-19-409-005",
+        "parcel2": "",
+        "status": "website blocked",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    11: {
+        "agency_number": "170770000",
+        "agency_name": "Jackson County IL",
+        "website": "https://jacksoncounty-il.gov/government/departments-i-z/treasurer",
+        "parcel1": "15-20-277-023",
+        "parcel2": "",
+        "status": "website blocked",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    12: {
+        "agency_number": "171490000",
+        "agency_name": "Pike County IL",
+        "website": "https://pikeil.devnetwedge.com/",
+        "parcel1": "54-059-02B",
+        "parcel2": "",
+        "status": "website blocked",
+        "reason": "your connection not private",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    13: {
+        "agency_number": "181270000",
+        "agency_name": "Porter County IN",
+        "website": "https://lowtaxinfo.com/portercounty/",
+        "parcel1": "64-06-25-251-001.000-006",
+        "parcel2": "",
+        "status": "website blocked",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    
+    # Other issues
+    14: {
+        "agency_number": "181110000",
+        "agency_name": "Newton County IN",
+        "website": "http://www.newtoncounty.in.gov/",
+        "parcel1": "56-16-21-114-037.001-011",
+        "parcel2": "",
+        "status": "link not found",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    15: {
+        "agency_number": "40150000",
+        "agency_name": "Mohave County",
+        "website": "https://www.mohave.gov/ContentPage.aspx?id=132",
+        "parcel1": "R0184626",
+        "parcel2": "",
+        "status": "access is denied",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    16: {
+        "agency_number": "40190000",
+        "agency_name": "Pima County",
+        "website": "https://www.to.pima.gov/home/#contactInfo",
+        "parcel1": "223-02-036A",
+        "parcel2": "",
+        "status": "website blocked",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    
+    # CAPTION entries (appears to be duplicate/special cases)
+    17: {
+        "agency_number": "180670000",
+        "agency_name": "Howard County IN",
+        "website": "https://billpay.forte.net/howardcointreasurer/",
+        "parcel1": "34-03-24-276-001 000-002",
+        "parcel2": "34-05-33-302-010.000-011",
+        "status": "CAPTION",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    18: {
+        "agency_number": "180970000",
+        "agency_name": "Marion County IN",
+        "website": "https://www.indy.gov/agency/marion-county-treasurers-office",
+        "parcel1": "4038626",
+        "parcel2": "",
+        "status": "CAPTION",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    19: {
+        "agency_number": "132450000",
+        "agency_name": "Richmond County GA",
+        "website": "https://richmondcountyga.governmentwindow.com/tax.html",
+        "parcel1": "012-0-019-22-0",
+        "parcel2": "",
+        "status": "CAPTION",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+    
+    # Not working entries
+
+    21: {
+        "agency_number": "40130000",
+        "agency_name": "Maricopa County",
+        "website": "http://www.treasurer.maricopa.gov/",
+        "parcel1": "11139292 1",
+        "parcel2": "",
+        "status": "not working",
+        "reason": "",
+        "state": None,
+        "county": None,
+        "year": None
+    },
+}
 
 # # Example usage:
 # if __name__ == "__main__":

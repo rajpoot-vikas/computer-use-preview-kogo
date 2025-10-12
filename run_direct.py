@@ -15,12 +15,12 @@
 import os
 from agent import BrowserAgent
 from computers import BrowserbaseComputer, PlaywrightComputer
-from user_prompt import USER_FLEXIBLE_PROMPT
+from user_prompt import USER_FLEXIBLE_STATE_COUNTY_PROMPT
 import dotenv
 import sys
 dotenv.load_dotenv()
 
-from county_data_dict import county_data_10_web
+from county_data_dict import county_data_10_web, new_county_data_next60_days, county_data_mixed_status
 
 PLAYWRIGHT_SCREEN_SIZE = (1366, 1400)
 
@@ -35,12 +35,17 @@ MODEL = "gemini-2.5-computer-use-preview-10-2025"
 
 # index = 11
 
-def run(initial_url: str, parcel_number: str, search_year: str) -> int:
+def run(initial_url: str, parcel_number: str, search_year: str, state: str, county: str) -> int:
     """
     Run the browser agent with predefined configuration variables.
     Modify the variables at the top of this file to change behavior.
     """
-    query = USER_FLEXIBLE_PROMPT.format(parcel_number=parcel_number, search_year=search_year)
+    query = USER_FLEXIBLE_STATE_COUNTY_PROMPT.format(
+        parcel_number=parcel_number, 
+        search_year=search_year,
+        state=state,
+        county=county
+    )
     
     # print(f"Running browser agent with query: {query}") 
     # print(f"Environment: {ENV}")
@@ -79,13 +84,20 @@ if __name__ == "__main__":
     # global index
     # for index in range(25, 26):
     print("\n\n\n\n") 
-    index = 4
-    print(f" \033[92m STARTING OF NEW RECORDING INDEX {index} \033[0m")
+    print("#"*100) 
+    print("#"*100) 
+    index = 20
+    print(f" \033[92m STARTING OF NEW RECORDING INDEX {index} \033[0m") 
 
-    initial_url = county_data_10_web[index]["website"] 
-    parcel_number = county_data_10_web[index]["parcel1"] 
-    search_year = "2024"
+    initial_url = county_data_mixed_status[index]["website"] 
+    parcel_number = county_data_mixed_status[index]["parcel1"] 
+    search_year = county_data_mixed_status[index]["year"] 
+    state = county_data_mixed_status[index]["state"]  # Or get from your data source
+    county = county_data_mixed_status[index]["county"]  # Or get from your data source
     
-    run(initial_url, parcel_number, search_year)
+    run(initial_url, parcel_number, search_year, state, county)
+
+    print("#"*100) 
+    print("#"*100) 
 
  

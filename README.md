@@ -141,4 +141,5 @@ The `main.py` script is the command-line interface (CLI) for running the browser
 
 
 
-python run_direct.py 2>&1 | tee ./data/logs/test_again_.log    
+
+python run_direct.py 2>&1 | tee -a ./data/logs/12oct.log
