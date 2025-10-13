@@ -530,6 +530,7 @@ county_data_mixed_status = {
     },
 }
 
+# ...existing code...
 
 new_data_o13 = {
     
@@ -555,194 +556,239 @@ new_data_o13 = {
         "status" : "working"
     },
     5: {
-        "website": "http://www.townofbeekman.com/",
+        # "website": "http://www.townofbeekman.com/",
+        "website":"https://egov.basgov.com/beekman/",
         "parcel": "132200-6659-00-152942-0000", 
         "status": "NOT WORKING : not able to click the correct input box."
     },
     6: {
         "website": "https://www.lagrangeny.gov/departments/tax-collections",
-        "parcel": "133400-6361-03-068270-0000"
+        "parcel": "133400-6361-03-068270-0000",
+        "status": "unknown"
     },
     7: {
         "website": "https://www.arlingtonschools.org/domain/80",
-        "parcel": "134400-6363-02-565716-0000"
+        "parcel": "134400-6363-02-565716-0000",
+        "status": "unknown"
     },
     8: {
         "website": "http://www.townofpoughkeepsie.com/",
-        "parcel": "134689-6161-08-908870-0000"
+        "parcel": "134689-6161-08-908870-0000",
+        "status": "unknown"
     },
     9: {
         "website": "https://www.hydeparkny.us/168/Receiver-of-Taxes",
-        "parcel": "133200-6165-01-454644-0000"
+        "parcel": "133200-6165-01-454644-0000",
+        "status": "unknown"
     },
     10: {
         "website": "https://eastfishkillny.gov/receiver-of-taxes/",
-        "parcel": "132800-6358-02-692561-0000"
+        "parcel": "132800-6358-02-692561-0000",
+        "status": "unknown"
     },
     11: {
         "website": "http://www.fishkill-ny.gov/",
-        "parcel": "133000 6255-01-131658-0000"
+        "parcel": "133000 6255-01-131658-0000",
+        "status": "unknown"
     },
     12: {
         "website": "https://townofwappingerny.gov/receiver-of-taxes/",
-        "parcel": "135601-6158-80-417013-0000"
+        "parcel": "135601-6158-80-417013-0000",
+        "status": "unknown"
     },
     13: {
         "website": "https://www.townofconcordny.com",
-        "parcel": "143400 243.00-3-17.1"
+        "parcel": "143400 243.00-3-17.1",
+        "status": "unknown"
     },
     14: {
         "website": "https://www.kpb.us/finance-dept/property-tax-and-collections",
-        "parcel": "5914036"
+        "parcel": "5914036",
+        "status": "unknown"
     },
     15: {
         "website": "http://www.independencecounty.com/",
-        "parcel": "1100226002C"
+        "parcel": "1100226002C",
+        "status": "unknown"
     },
     16: {
         "website": "http://johnsoncounty.arkansas.gov/",
-        "parcel": "002-01935-002C"
+        "parcel": "002-01935-002C",
+        "status": "unknown"
     },
     17: {
         "website": "https://taxpayment.countyservice.net/County?name=sharp",
-        "parcel": "001-00270-000"
+        "parcel": "001-00270-000",
+        "status": "unknown"
     },
     18: {
         "website": "http://www.co.shelby.in.us/treasurer/",
-        "parcel": "73-11-05-100-185.000-002"
+        "parcel": "73-11-05-100-185.000-002",
+        "status": "unknown"
     },
     19: {
         "website": "https://www.cobbtax.org/",
-        "parcel": "16021400390"
+        "parcel": "16021400390",
+        "status": "unknown"
     },
     20: {
         "website": "https://warrencountyil.gov/offices/treasurer/",
-        "parcel": "07-620-001-00"
+        "parcel": "07-620-001-00",
+        "status": "unknown"
     },
     21: {
         "website": "http://www.lagrangeky.net",
-        "parcel": "47-00-00-29A"
+        "parcel": "47-00-00-29A",
+        "status": "unknown"
     },
     22: {
         "website": "http://www.scarboroughmaine.org/",
-        "parcel": "U044017A"
+        "parcel": "U044017A",
+        "status": "unknown"
     },
     23: {
         "website": "http://www.anokacountymn.gov",
-        "parcel": "23-30-24-44-0006"
+        "parcel": "23-30-24-44-0006",
+        "status": "unknown"
     },
     24: {
         "website": "http://www.co.becker.mn.us/dept/auditor_treasurer/tax_statements_online.aspx",
-        "parcel": "60489002"
+        "parcel": "60489002",
+        "status": "unknown"
     },
     25: {
         "website": "http://www.co.benton.mn.us/",
-        "parcel": "17.02440.00"
+        "parcel": "17.02440.00",
+        "status": "unknown"
     },
     26: {
         "website": "https://bigstonecounty.gov/departments/auditor-treasurer/",
-        "parcel": "17-0136-000"
+        "parcel": "17-0136-000",
+        "status": "unknown"
     },
     27: {
         "website": "http://www.co.blue-earth.mn.us/",
-        "parcel": "R12.10.18.451.001"
+        "parcel": "R12.10.18.451.001",
+        "status": "unknown"
     },
     28: {
         "website": "http://www.co.carver.mn.us/home",
-        "parcel": "75.3150015"
+        "parcel": "75.3150015",
+        "status": "unknown"
     },
     29: {
         "website": "http://www.co.cass.mn.us/government/county_directory/auditor",
-        "parcel": "34-029-4205"
+        "parcel": "34-029-4205",
+        "status": "unknown"
     },
     30: {
         "website": "http://www.co.chisago.mn.us/",
-        "parcel": "160006000"
+        "parcel": "160006000",
+        "status": "unknown"
     },
     31: {
         "website": "http://crowwing.us/",
-        "parcel": "20080619"
+        "parcel": "20080619",
+        "status": "unknown"
     },
     32: {
         "website": "https://www.co.dakota.mn.us/Pages/default.aspx",
-        "parcel": "02-48750-01-061"
+        "parcel": "02-48750-01-061",
+        "status": "unknown"
     },
     33: {
         "website": "http://www.co.dodge.mn.us/",
-        "parcel": "R 12.016.0301"
+        "parcel": "R 12.016.0301",
+        "status": "unknown"
     },
     34: {
         "website": "https://www.douglascountymn.gov/",
-        "parcel": "12-0850-035"
+        "parcel": "12-0850-035",
+        "status": "unknown"
     },
     35: {
         "website": "http://www.co.fillmore.mn.us/",
-        "parcel": "R17.0336.000"
+        "parcel": "R17.0336.000",
+        "status": "unknown"
     },
     36: {
         "website": "https://www.co.goodhue.mn.us/149/Property-Tax-Information",
-        "parcel": "551330010"
+        "parcel": "551330010",
+        "status": "unknown"
     },
     37: {
         "website": "http://www.hennepin.us/",
-        "parcel": "26-029-24-23-0147"
+        "parcel": "26-029-24-23-0147",
+        "status": "unknown"
     },
     38: {
         "website": "https://www.co.houston.mn.us/departments/auditor-treasurer/",
-        "parcel": "R04.0005.000"
+        "parcel": "R04.0005.000",
+        "status": "unknown"
     },
     39: {
         "website": "http://www.co.isanti.mn.us/isanti",
-        "parcel": "13.105.0020"
+        "parcel": "13.105.0020",
+        "status": "unknown"
     },
     40: {
         "website": "https://www.co.itasca.mn.us/177/AuditorTreasurers-Office",
-        "parcel": "85-027-3465"
+        "parcel": "85-027-3465",
+        "status": "unknown"
     },
     41: {
         "website": "http://www.kanabeccounty.org/",
-        "parcel": "22-00630-00"
+        "parcel": "22-00630-00",
+        "status": "unknown"
     },
     42: {
         "website": "http://www.co.kandiyohi.mn.us/",
-        "parcel": "95-908-0041"
+        "parcel": "95-908-0041",
+        "status": "unknown"
     },
     43: {
         "website": "http://co.kittson.mn.us/",
-        "parcel": "35.000665"
+        "parcel": "35.000665",
+        "status": "unknown"
     },
     44: {
         "website": "http://www.co.lake-of-the-woods.mn.us/",
-        "parcel": "19-2532-010"
+        "parcel": "19-2532-010",
+        "status": "unknown"
     },
     45: {
         "website": "http://www.lyonco.org/",
-        "parcel": "31-156001-0"
+        "parcel": "31-156001-0",
+        "status": "unknown"
     },
     46: {
         "website": "http://www.co.mcleod.mn.us/",
-        "parcel": "R23.290.0020"
+        "parcel": "R23.290.0020",
+        "status": "unknown"
     },
     47: {
         "website": "http://www.co.martin.mn.us/",
-        "parcel": "380400090"
+        "parcel": "380400090",
+        "status": "unknown"
     },
     48: {
         "website": "http://www.co.mille-lacs.mn.us/",
-        "parcel": "22-810-0110"
+        "parcel": "22-810-0110",
+        "status": "unknown"
     },
     49: {
         "website": "http://co.mower.mn.us/",
-        "parcel": "34.875.0010"
+        "parcel": "34.875.0010",
+        "status": "unknown"
     },
     50: {
         "website": "http://www.co.nobles.mn.us/",
-        "parcel": "31-0621-000"
+        "parcel": "31-0621-000",
+        "status": "unknown"
     },
     51: {
         "website": "https://www.co.olmsted.mn.us/Pages/default.aspx",
-        "parcel": "RP 74.35.43.017897"
+        "parcel": "RP 74.35.43.017897",
+        "status": "unknown"
     }
 }
-
-

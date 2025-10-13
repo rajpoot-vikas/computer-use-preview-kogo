@@ -594,3 +594,4 @@ class PlaywrightComputer(Computer):
             termcolor.cprint(f"❌ {error_msg}", color="red")
             return {"success": False, "error": error_msg, "url": self._page.url}
 
+
