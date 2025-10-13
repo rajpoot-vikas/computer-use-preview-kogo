@@ -15,7 +15,7 @@
 import os
 from agent import BrowserAgent
 from computers import BrowserbaseComputer, PlaywrightComputer
-from utils.user_prompt import USER_FLEXIBLE_SPLIT_PARCEL_PROMPT
+from utils.user_prompt import OHC_PROMPT
 import dotenv
 import sys
 dotenv.load_dotenv()
@@ -29,22 +29,13 @@ ENV = "playwright"
 HIGHLIGHT_MOUSE = True
 MODEL = "gemini-2.5-computer-use-preview-10-2025"
 
-
-
-
-
-# index = 11
-
-def run(initial_url: str, parcel_number: str, search_year: str, state: str, county: str) -> int:
+def run(initial_url: str, part_no: str, ) -> int:
     """
     Run the browser agent with predefined configuration variables.
     Modify the variables at the top of this file to change behavior.
     """
-    query = USER_FLEXIBLE_SPLIT_PARCEL_PROMPT.format(
-        parcel_number=parcel_number, 
-        search_year=search_year,
-        state=state,
-        county=county
+    query = OHC_PROMPT.format(
+        part_number=part_no, 
     )
     
     # print(f"Running browser agent with query: {query}") 
@@ -61,6 +52,7 @@ def run(initial_url: str, parcel_number: str, search_year: str, state: str, coun
             initial_url=initial_url,
             highlight_mouse=HIGHLIGHT_MOUSE,
             record_video=True,
+            parcel_number=part_no
         )
     elif ENV == "browserbase":
         env = BrowserbaseComputer(
@@ -81,25 +73,13 @@ def run(initial_url: str, parcel_number: str, search_year: str, state: str, coun
 
 
 if __name__ == "__main__":
-    # Get index from command line argument, default to 1
-    # global index
-    # for index in range(1, 52):
-    index = 5
     
-    print("\n\n\n\n") 
-    print("#"*100) 
-    print("#"*100) 
-    print(f" \033[92m STARTING OF NEW RECORDING INDEX {index} \033[0m") 
-    initial_url = new_data_o13[index]["website"] 
-    parcel_number = new_data_o13[index]["parcel"]
-    
-    search_year = "none"
-    state = "none"  # Or get from your data source
-    county = "none" # Or get from your data source
-    
-    run(initial_url, parcel_number, search_year, state, county)
+    initial_url = "https://static.ilsmart.com/pages/ilslogin.htm"
+    part_no = "521100"
+    part_no = "4383121"
+ 
+    run(initial_url, part_no)
 
-    print("#"*100) 
     print("#"*100) 
 
 

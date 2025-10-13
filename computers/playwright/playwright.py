@@ -24,6 +24,7 @@ from ..computer import (
     Computer,
     EnvState,
 )
+from ..data_extraction_prompt import EXTRACTION_PROMPT_V3
 import playwright.sync_api
 from playwright.sync_api import sync_playwright
 from typing import Literal, Dict, Any
@@ -86,6 +87,9 @@ class PlaywrightComputer(Computer):
         search_engine_url: str = "https://www.google.com",
         highlight_mouse: bool = False,
         record_video: bool = True,
+        parcel_number :str = None, 
+        tax_year :str =None, 
+        installment: str =None 
     ):
         self._initial_url = initial_url
         self._screen_size = screen_size
@@ -93,6 +97,9 @@ class PlaywrightComputer(Computer):
         self._highlight_mouse = highlight_mouse
         self._record_video = record_video
         self._video_path = None
+        self._parcel_number = parcel_number
+        self._tax_year = tax_year
+        self._installment = installment
 
     def _handle_new_page(self, new_page: playwright.sync_api.Page):
         """The Computer Use model only supports a single tab at the moment.
@@ -102,7 +109,8 @@ class PlaywrightComputer(Computer):
         """
         new_url = new_page.url
         new_page.close()
-        self._page.goto(new_url)
+        # Increase timeout to 60 seconds (120000ms) for slow-loading pages
+        self._page.goto(new_url, timeout=90000) 
 
     def __enter__(self):
         print("Creating session...")
@@ -146,7 +154,8 @@ class PlaywrightComputer(Computer):
         
         self._context = self._browser.new_context(**context_options)
         self._page = self._context.new_page()
-        self._page.goto(self._initial_url)
+        # Increase timeout to 120 seconds (120000ms) for slow-loading pages
+        self._page.goto(self._initial_url, timeout=120000)
 
         self._context.on("page", self._handle_new_page)
 
@@ -169,7 +178,14 @@ class PlaywrightComputer(Computer):
                 # Close page to ensure video is saved
                 video = self._page.video
                 if video:
-                    video_path = video.path()
+                    # video_path = video.path() 
+                    # video_path = video.path() 
+                    recording_dir = Path("./data/recording") 
+                    recording_dir.mkdir(parents=True, exist_ok=True) 
+                    
+                    # Generate video filename with timestamp 
+                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    video_path = recording_dir / f"{self._parcel_number}_{timestamp}"
                     termcolor.cprint(
                         f"✅ Video saved to: {video_path}",
                         color="green",
@@ -315,7 +331,8 @@ class PlaywrightComputer(Computer):
         normalized_url = url
         if not normalized_url.startswith(("http://", "https://")):
             normalized_url = "https://" + normalized_url
-        self._page.goto(normalized_url)
+        # Increase timeout to 120 seconds (120000ms) for slow-loading pages
+        self._page.goto(normalized_url, timeout=120000)
         self._page.wait_for_load_state()
         return self.current_state()
 
@@ -353,7 +370,8 @@ class PlaywrightComputer(Computer):
         # Even if Playwright reports the page as loaded, it may not be so.
         # Add a manual sleep to make sure the page has finished rendering.
         time.sleep(8) 
-        screenshot_bytes = self._page.screenshot(type="png", full_page=False)
+        screenshot_bytes = self._page.screenshot(type="png", full_page=False) 
+        print("\033[92m URL Navigated : ", self._page.url, "\033[0m")
         return EnvState(screenshot=screenshot_bytes, url=self._page.url)
 
     def screen_size(self) -> tuple[int, int]:
@@ -456,30 +474,18 @@ class PlaywrightComputer(Computer):
 
             client = genai.Client(api_key=api_key)
 
-            # Create prompt for structured extraction
-            # fields_list = ", ".join(fields)
+            # Create prompt using EXTRACTION_PROMPT_V3 template
             # Save prompt to file
             timestamp = time.strftime("%Y%m%d_%H%M%S")
             prompt_file_path = f"./data/prompts/extraction_prompt_{timestamp}.txt"
             prompt_file_path_obj = Path(prompt_file_path)
             prompt_file_path_obj.parent.mkdir(parents=True, exist_ok=True)
             
-            prompt = f"""
-                    Your task is to extract specific information from the page content below.
-
-                    Extraction Goal: {extraction_goal}
-
-                    Fields to Extract: {fields}
-
-                    Return ONLY a valid JSON object with these exact field names as keys.
-                    If a field is not found, set its value to null.
-                    Do not include any explanation or markdown formatting, just the raw JSON.
-
-                    Page Content:
-                    {content}
-
-                    JSON Output:
-            """
+            # Format the EXTRACTION_PROMPT_V3 with required variables
+            prompt = EXTRACTION_PROMPT_V3.format(
+                # parcelNumber=self._parcel_number or "",
+                data=content
+            )
             
             with open(prompt_file_path_obj, "w", encoding="utf-8") as f:
                 f.write(prompt)
@@ -487,28 +493,52 @@ class PlaywrightComputer(Computer):
             response = client.models.generate_content(
                 model="gemini-2.0-flash", contents=prompt
             )
-
-            # Parse JSON from response
-            json_text = response.text.strip()
-            if json_text.startswith("```json"):
-                json_text = json_text[7:]
-            if json_text.startswith("```"):
-                json_text = json_text[3:]
-            if json_text.endswith("```"):
-                json_text = json_text[:-3]
-
-            extracted_data = json.loads(json_text.strip())
-            extracted_data["url"] = self._page.url
-
-            print("*"*100) 
-            print("\033[92m extracted data : \n ", extracted_data, "\033[0m")
-            print("*"*100) 
             
-            # termcolor.cprint(
-            #     # f"📊 Extracted structured data: {list(extracted_data.keys())}",
-            #     f"📊 Extracted structured data: {extracted_data}",
-            #     color="green",
-            # )
+            
+            print("response : ", response)
+            print("response : ", response.text) 
+
+            # # Parse JSON from response
+            # json_text = response.text.strip()
+            
+            # # Remove markdown code block markers
+            # if json_text.startswith("```json"):
+            #     json_text = json_text[7:]
+            # elif json_text.startswith("```"):
+            #     json_text = json_text[3:]
+            
+            # if json_text.endswith("```"):
+            #     json_text = json_text[:-3]
+            
+            # Strip again to remove any whitespace after removing markers
+            # json_text = json_text.strip()
+            
+            # Find the actual JSON object/array start
+            # Handle cases where there might be text before the JSON
+            # json_start = -1
+            # for i, char in enumerate(json_text):
+            #     if char in ['{', '[']:
+            #         json_start = i
+            #         break
+            
+            # if json_start > 0:
+            #     json_text = json_text[json_start:]
+            # elif json_start == -1:
+            #     # No JSON found, raise an error
+            #     raise ValueError(f"No JSON object found in response. Response text: {json_text[:200]}")
+
+            # extracted_data = json.loads(json_text.strip())
+            # extracted_data["url"] = self._page.url
+
+            # print("*"*100) 
+            # print("\033[92m extracted data : \n ", extracted_data, "\033[0m")
+            # print("*"*100) 
+            
+            termcolor.cprint(
+                # f"📊 Extracted structured data: {list(extracted_data.keys())}",
+                f"📊 Extracted structured data: {response}",
+                color="green",
+            )
             
             timestamp = time.strftime("%Y%m%d_%H%M%S")
             ex_data = f"./data/ext/extraction_data_{timestamp}.txt"
@@ -516,9 +546,9 @@ class PlaywrightComputer(Computer):
             ex_data_obj.parent.mkdir(parents=True, exist_ok=True)
             
             with open(ex_data_obj, "w", encoding="utf-8") as f:
-                f.write(str(extracted_data))
+                f.write(str(response))
         
-            return extracted_data
+            return response
 
         except json.JSONDecodeError as e:
             termcolor.cprint(f"⚠️  Failed to parse JSON: {e}", color="yellow")

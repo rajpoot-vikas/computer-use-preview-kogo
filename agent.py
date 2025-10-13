@@ -412,6 +412,8 @@ class BrowserAgent:
         status = "CONTINUE"
         while status == "CONTINUE":
             status = self.run_one_iteration()
+        
+        # print("new one."*100)
         fields = {
             "date": "date of amount due, payment due date, deadline, due by date, payable by, payment deadline, or maturity date",
             "baseAmount": "base amount, bill amount, tax amount, principal amount, original amount, assessed value, taxable amount, gross amount, or amount before any adjustments or discounts",
