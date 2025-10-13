@@ -15,12 +15,12 @@
 import os
 from agent import BrowserAgent
 from computers import BrowserbaseComputer, PlaywrightComputer
-from user_prompt import USER_FLEXIBLE_SPLIT_PARCEL_PROMPT
+from utils.user_prompt import USER_FLEXIBLE_SPLIT_PARCEL_PROMPT
 import dotenv
 import sys
 dotenv.load_dotenv()
 
-from county_data_dict import county_data_10_web, new_county_data_next60_days, new_data_o13
+from utils.county_data_dict import county_data_10_web, new_county_data_next60_days, new_data_o13
 
 PLAYWRIGHT_SCREEN_SIZE = (1366, 1400)
 
