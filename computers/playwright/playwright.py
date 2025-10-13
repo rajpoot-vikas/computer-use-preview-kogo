@@ -19,6 +19,7 @@ import sys
 import json
 import base64
 from pathlib import Path
+from datetime import datetime
 from ..computer import (
     Computer,
     EnvState,
@@ -84,11 +85,14 @@ class PlaywrightComputer(Computer):
         initial_url: str = "https://www.google.com",
         search_engine_url: str = "https://www.google.com",
         highlight_mouse: bool = False,
+        record_video: bool = True,
     ):
         self._initial_url = initial_url
         self._screen_size = screen_size
         self._search_engine_url = search_engine_url
         self._highlight_mouse = highlight_mouse
+        self._record_video = record_video
+        self._video_path = None
 
     def _handle_new_page(self, new_page: playwright.sync_api.Page):
         """The Computer Use model only supports a single tab at the moment.
@@ -116,12 +120,31 @@ class PlaywrightComputer(Computer):
             ],
             headless=bool(os.environ.get("PLAYWRIGHT_HEADLESS", False)),
         )
-        self._context = self._browser.new_context(
-            viewport={
+        
+        # Setup video recording if enabled
+        context_options = {
+            "viewport": {
                 "width": self._screen_size[0],
                 "height": self._screen_size[1],
             }
-        )
+        }
+        
+        if self._record_video:
+            # Create recording directory
+            recording_dir = Path("./data/recording")
+            recording_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Generate video filename with timestamp
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            self._video_path = recording_dir / f"session_{timestamp}"
+            
+            context_options["record_video_dir"] = str(recording_dir)
+            context_options["record_video_size"] = {
+                "width": self._screen_size[0],
+                "height": self._screen_size[1],
+            }
+        
+        self._context = self._browser.new_context(**context_options)
         self._page = self._context.new_page()
         self._page.goto(self._initial_url)
 
@@ -132,9 +155,32 @@ class PlaywrightComputer(Computer):
             color="green",
             attrs=["bold"],
         )
+        if self._record_video:
+            termcolor.cprint(
+                f"🎥 Recording video to: {recording_dir}/",
+                color="cyan",
+            )
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
+        # Save video before closing
+        if self._record_video and self._page:
+            try:
+                # Close page to ensure video is saved
+                video = self._page.video
+                if video:
+                    video_path = video.path()
+                    termcolor.cprint(
+                        f"✅ Video saved to: {video_path}",
+                        color="green",
+                        attrs=["bold"],
+                    )
+            except Exception as e:
+                termcolor.cprint(
+                    f"⚠️  Warning: Could not get video path: {e}",
+                    color="yellow",
+                )
+        
         if self._context:
             self._context.close()
         try:
@@ -454,12 +500,15 @@ class PlaywrightComputer(Computer):
             extracted_data = json.loads(json_text.strip())
             extracted_data["url"] = self._page.url
 
-            print("\033[92m extracted data : ", extracted_data, "\033[0m")
-            termcolor.cprint(
-                # f"📊 Extracted structured data: {list(extracted_data.keys())}",
-                f"📊 Extracted structured data: {extracted_data}",
-                color="green",
-            )
+            print("*"*100) 
+            print("\033[92m extracted data : \n ", extracted_data, "\033[0m")
+            print("*"*100) 
+            
+            # termcolor.cprint(
+            #     # f"📊 Extracted structured data: {list(extracted_data.keys())}",
+            #     f"📊 Extracted structured data: {extracted_data}",
+            #     color="green",
+            # )
             
             timestamp = time.strftime("%Y%m%d_%H%M%S")
             ex_data = f"./data/ext/extraction_data_{timestamp}.txt"

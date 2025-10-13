@@ -19,6 +19,7 @@ def test_extraction_and_pdf():
         screen_size=PLAYWRIGHT_SCREEN_SIZE,
         initial_url="https://myplace.cuyahogacounty.gov/",
         highlight_mouse=False,
+        record_video=True,
     ) as browser:
         
         print("\n" + "="*60)

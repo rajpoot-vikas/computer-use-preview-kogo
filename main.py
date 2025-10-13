@@ -51,6 +51,18 @@ def main() -> int:
         help="If possible, highlight the location of the mouse.",
     )
     parser.add_argument(
+        "--record_video",
+        action="store_true",
+        default=True,
+        help="Record video of the browser session (enabled by default).",
+    )
+    parser.add_argument(
+        "--no_record_video",
+        action="store_false",
+        dest="record_video",
+        help="Disable video recording.",
+    )
+    parser.add_argument(
         "--model",
         default='gemini-2.5-computer-use-preview-10-2025',
         help="Set which main model to use.",
@@ -62,6 +74,7 @@ def main() -> int:
             screen_size=PLAYWRIGHT_SCREEN_SIZE,
             initial_url=args.initial_url,
             highlight_mouse=args.highlight_mouse,
+            record_video=args.record_video,
         )
     elif args.env == "browserbase":
         env = BrowserbaseComputer(

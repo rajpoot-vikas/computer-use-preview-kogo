@@ -117,7 +117,6 @@ county_data_10_web = {
 }
 
 
-
 data_web = {
     1: {
         "website": "https://ca-solano.publicaccessnow.com/TaxCollector/TaxSearch.aspx",
@@ -230,8 +229,6 @@ data_web = {
 }
 
 
-
-
 new_county_data_next60_days = {
 
     2: {
@@ -262,7 +259,6 @@ new_county_data_next60_days = {
 }
 
 
-# Additional County Data - Mixed Status
 county_data_mixed_status = {
     # Working entries
     1: {
@@ -534,25 +530,219 @@ county_data_mixed_status = {
     },
 }
 
-# # Example usage:
-# if __name__ == "__main__":
-#     # Print all entries
-#     for key, value in county_data.items():
-#         print(f"\nEntry {key}:")
-#         print(f"  Agency: {value['agency_name']}")
-#         print(f"  Website: {value['website']}")
-#         print(f"  Parcel 1: {value['parcel1']}")
-#         print(f"  Parcel 2: {value['parcel2']}")
-#         print(f"  Description: {value['description']}")
+
+new_data_o13 = {
     
-#     # Filter working entries
-#     working_entries = {k: v for k, v in county_data.items() if "Able to get the data" in v['description']}
-#     print(f"\n\nTotal agencies: {len(county_data)}")
-#     print(f"Working agencies: {len(working_entries)}")
-    
-#     # Get specific agency
-#     clay_county = county_data.get(9)
-#     if clay_county:
-#         print(f"\nClay County:")
-#         print(f"  Parcel 1: {clay_county['parcel1']}")
-#         print(f"  Parcel 2: {clay_county['parcel2']}")
+    1 : {
+        "website":"https://www.ri.gov/app/pawtucket/tax", 
+        "parcel":"46050",
+        "status" : "working"
+        
+    },
+    2: {
+        "website": "https://claycounty.illinois.gov/treasurer/",
+        "parcel": "10-25-143-012",
+        "status" : "not working"
+    },
+    3: {
+        "website": "https://jeffersoncounty.illinois.gov/services/treasurercollector/index.php",
+        "parcel": "06-26-351-018",
+        "status" : "website not open"
+    },
+    4: {
+        "website": "https://www.seasideparknj.org/",
+        "parcel": "Block 14 Lot 3", 
+        "status" : "working"
+    },
+    5: {
+        "website": "http://www.townofbeekman.com/",
+        "parcel": "132200-6659-00-152942-0000", 
+        "status": "NOT WORKING : not able to click the correct input box."
+    },
+    6: {
+        "website": "https://www.lagrangeny.gov/departments/tax-collections",
+        "parcel": "133400-6361-03-068270-0000"
+    },
+    7: {
+        "website": "https://www.arlingtonschools.org/domain/80",
+        "parcel": "134400-6363-02-565716-0000"
+    },
+    8: {
+        "website": "http://www.townofpoughkeepsie.com/",
+        "parcel": "134689-6161-08-908870-0000"
+    },
+    9: {
+        "website": "https://www.hydeparkny.us/168/Receiver-of-Taxes",
+        "parcel": "133200-6165-01-454644-0000"
+    },
+    10: {
+        "website": "https://eastfishkillny.gov/receiver-of-taxes/",
+        "parcel": "132800-6358-02-692561-0000"
+    },
+    11: {
+        "website": "http://www.fishkill-ny.gov/",
+        "parcel": "133000 6255-01-131658-0000"
+    },
+    12: {
+        "website": "https://townofwappingerny.gov/receiver-of-taxes/",
+        "parcel": "135601-6158-80-417013-0000"
+    },
+    13: {
+        "website": "https://www.townofconcordny.com",
+        "parcel": "143400 243.00-3-17.1"
+    },
+    14: {
+        "website": "https://www.kpb.us/finance-dept/property-tax-and-collections",
+        "parcel": "5914036"
+    },
+    15: {
+        "website": "http://www.independencecounty.com/",
+        "parcel": "1100226002C"
+    },
+    16: {
+        "website": "http://johnsoncounty.arkansas.gov/",
+        "parcel": "002-01935-002C"
+    },
+    17: {
+        "website": "https://taxpayment.countyservice.net/County?name=sharp",
+        "parcel": "001-00270-000"
+    },
+    18: {
+        "website": "http://www.co.shelby.in.us/treasurer/",
+        "parcel": "73-11-05-100-185.000-002"
+    },
+    19: {
+        "website": "https://www.cobbtax.org/",
+        "parcel": "16021400390"
+    },
+    20: {
+        "website": "https://warrencountyil.gov/offices/treasurer/",
+        "parcel": "07-620-001-00"
+    },
+    21: {
+        "website": "http://www.lagrangeky.net",
+        "parcel": "47-00-00-29A"
+    },
+    22: {
+        "website": "http://www.scarboroughmaine.org/",
+        "parcel": "U044017A"
+    },
+    23: {
+        "website": "http://www.anokacountymn.gov",
+        "parcel": "23-30-24-44-0006"
+    },
+    24: {
+        "website": "http://www.co.becker.mn.us/dept/auditor_treasurer/tax_statements_online.aspx",
+        "parcel": "60489002"
+    },
+    25: {
+        "website": "http://www.co.benton.mn.us/",
+        "parcel": "17.02440.00"
+    },
+    26: {
+        "website": "https://bigstonecounty.gov/departments/auditor-treasurer/",
+        "parcel": "17-0136-000"
+    },
+    27: {
+        "website": "http://www.co.blue-earth.mn.us/",
+        "parcel": "R12.10.18.451.001"
+    },
+    28: {
+        "website": "http://www.co.carver.mn.us/home",
+        "parcel": "75.3150015"
+    },
+    29: {
+        "website": "http://www.co.cass.mn.us/government/county_directory/auditor",
+        "parcel": "34-029-4205"
+    },
+    30: {
+        "website": "http://www.co.chisago.mn.us/",
+        "parcel": "160006000"
+    },
+    31: {
+        "website": "http://crowwing.us/",
+        "parcel": "20080619"
+    },
+    32: {
+        "website": "https://www.co.dakota.mn.us/Pages/default.aspx",
+        "parcel": "02-48750-01-061"
+    },
+    33: {
+        "website": "http://www.co.dodge.mn.us/",
+        "parcel": "R 12.016.0301"
+    },
+    34: {
+        "website": "https://www.douglascountymn.gov/",
+        "parcel": "12-0850-035"
+    },
+    35: {
+        "website": "http://www.co.fillmore.mn.us/",
+        "parcel": "R17.0336.000"
+    },
+    36: {
+        "website": "https://www.co.goodhue.mn.us/149/Property-Tax-Information",
+        "parcel": "551330010"
+    },
+    37: {
+        "website": "http://www.hennepin.us/",
+        "parcel": "26-029-24-23-0147"
+    },
+    38: {
+        "website": "https://www.co.houston.mn.us/departments/auditor-treasurer/",
+        "parcel": "R04.0005.000"
+    },
+    39: {
+        "website": "http://www.co.isanti.mn.us/isanti",
+        "parcel": "13.105.0020"
+    },
+    40: {
+        "website": "https://www.co.itasca.mn.us/177/AuditorTreasurers-Office",
+        "parcel": "85-027-3465"
+    },
+    41: {
+        "website": "http://www.kanabeccounty.org/",
+        "parcel": "22-00630-00"
+    },
+    42: {
+        "website": "http://www.co.kandiyohi.mn.us/",
+        "parcel": "95-908-0041"
+    },
+    43: {
+        "website": "http://co.kittson.mn.us/",
+        "parcel": "35.000665"
+    },
+    44: {
+        "website": "http://www.co.lake-of-the-woods.mn.us/",
+        "parcel": "19-2532-010"
+    },
+    45: {
+        "website": "http://www.lyonco.org/",
+        "parcel": "31-156001-0"
+    },
+    46: {
+        "website": "http://www.co.mcleod.mn.us/",
+        "parcel": "R23.290.0020"
+    },
+    47: {
+        "website": "http://www.co.martin.mn.us/",
+        "parcel": "380400090"
+    },
+    48: {
+        "website": "http://www.co.mille-lacs.mn.us/",
+        "parcel": "22-810-0110"
+    },
+    49: {
+        "website": "http://co.mower.mn.us/",
+        "parcel": "34.875.0010"
+    },
+    50: {
+        "website": "http://www.co.nobles.mn.us/",
+        "parcel": "31-0621-000"
+    },
+    51: {
+        "website": "https://www.co.olmsted.mn.us/Pages/default.aspx",
+        "parcel": "RP 74.35.43.017897"
+    }
+}
+
+

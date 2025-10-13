@@ -420,7 +420,7 @@ class BrowserAgent:
             "parcel_number": "parcel number, parcel ID, property identification number, property ID, file reference number, account number, tax ID, assessment number, property number, or folio number", 
             "discount_percentage": "discount percentage, discount rate, reduction percentage, tax relief rate, early payment discount rate, or percentage off applied on the tax amount or bill amount",
             "discount_amount": "discount amount, reduction amount, tax relief amount, savings amount, deduction amount, rebate amount, early payment discount, or amount reduced from the total dues"
-        }
+        } 
         self._browser_computer.get_data_from_last_page(fields=fields)
         self._browser_computer.save_last_page_as_pdf()        
 
