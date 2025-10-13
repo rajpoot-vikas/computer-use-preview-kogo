@@ -564,7 +564,7 @@ new_data_o13 = {
     6: {
         "website": "https://www.lagrangeny.gov/departments/tax-collections",
         "parcel": "133400-6361-03-068270-0000",
-        "status": "unknown"
+        "status": "website not open"
     },
     7: {
         "website": "https://www.arlingtonschools.org/domain/80",
@@ -577,164 +577,183 @@ new_data_o13 = {
         "status": "unknown"
     },
     9: {
-        "website": "https://www.hydeparkny.us/168/Receiver-of-Taxes",
+        # "website": "https://www.hydeparkny.us/168/Receiver-of-Taxes",
+        "website": "https://egov.basgov.com/hydepark/",
+        "parcel": "6163-06-440867-0000",
         "parcel": "133200-6165-01-454644-0000",
-        "status": "unknown"
+        
+        "status": "working: some time clicking the : Parcel Access button. need to change the  parcel number and website."
     },
     10: {
         "website": "https://eastfishkillny.gov/receiver-of-taxes/",
         "parcel": "132800-6358-02-692561-0000",
-        "status": "unknown"
+        "status": "website blocked : 403 Forbidden"
     },
     11: {
         "website": "http://www.fishkill-ny.gov/",
-        "parcel": "133000 6255-01-131658-0000",
-        "status": "unknown"
+        "parcel": "6155-03-406341-0000",
+        
+        "parcel1": "133000 6255-01-131658-0000",
+        "status": "working parcel number is not correct. "
     },
     12: {
         "website": "https://townofwappingerny.gov/receiver-of-taxes/",
         "parcel": "135601-6158-80-417013-0000",
-        "status": "unknown"
+        "status": "403 Forbidden" 
     },
     13: {
         "website": "https://www.townofconcordny.com",
-        "parcel": "143400 243.00-3-17.1",
-        "status": "unknown"
+        "parcel": "274.02-1-14",
+        "parcel1": "143400 243.00-3-17.1",
+        "status": "working, parcel is not correct."
     },
     14: {
         "website": "https://www.kpb.us/finance-dept/property-tax-and-collections",
+        "website1": "https://kpb.publicaccessnow.com/PropertyTax/TaxSearch.aspx",
         "parcel": "5914036",
-        "status": "unknown"
+        "status": "working, sometime button is not getting activate. "
     },
     15: {
         "website": "http://www.independencecounty.com/",
         "parcel": "1100226002C",
-        "status": "unknown"
+        "status": "You are currently blocked"
     },
     16: {
         "website": "http://johnsoncounty.arkansas.gov/",
         "parcel": "002-01935-002C",
-        "status": "unknown"
+        "status": "Sorry, you have been blocked"
     },
     17: {
         "website": "https://taxpayment.countyservice.net/County?name=sharp",
         "parcel": "001-00270-000",
-        "status": "unknown"
+        "status": "Sorry, you have been blocked"
     },
     18: {
         "website": "http://www.co.shelby.in.us/treasurer/",
         "parcel": "73-11-05-100-185.000-002",
-        "status": "unknown"
+        "status": "website not working"
     },
     19: {
         "website": "https://www.cobbtax.org/",
         "parcel": "16021400390",
-        "status": "unknown"
+        "status": "403 Forbidden"
     },
     20: {
         "website": "https://warrencountyil.gov/offices/treasurer/",
+        "website": "https://www.govtechtaxpro.com/parceldetail.php",
         "parcel": "07-620-001-00",
-        "status": "unknown"
+        "status": "catalis comman website will work"
     },
     21: {
         "website": "http://www.lagrangeky.net",
+        "website1":"https://lagrange.oldham.ky.pontemsoftware.com/",
         "parcel": "47-00-00-29A",
-        "status": "unknown"
+        "status": "pending"
     },
     22: {
         "website": "http://www.scarboroughmaine.org/",
+        "website":"https://scarboroughme.munisselfservice.com/css/citizens/PersonalProperty/Default.aspx",
+        "website":"https://scarboroughme.munisselfservice.com/css/citizens/RealEstate/Default.aspx",
         "parcel": "U044017A",
-        "status": "unknown"
+        "status": "pending"
     },
     23: {
         "website": "http://www.anokacountymn.gov",
         "parcel": "23-30-24-44-0006",
-        "status": "unknown"
+        "status": "login required "
     },
     24: {
         "website": "http://www.co.becker.mn.us/dept/auditor_treasurer/tax_statements_online.aspx",
         "parcel": "60489002",
-        "status": "unknown"
+        "status": "unknown : asking for sign in"
     },
     25: {
         "website": "http://www.co.benton.mn.us/",
+        "website":"https://property.bentoncountymn.gov/search/commonsearch.aspx?mode=realprop",
         "parcel": "17.02440.00",
-        "status": "unknown"
+        "status": "pending"
     },
     26: {
         "website": "https://bigstonecounty.gov/departments/auditor-treasurer/",
         "parcel": "17-0136-000",
-        "status": "unknown"
+        "status": "Sorry, you have been blocked"
     },
     27: {
         "website": "http://www.co.blue-earth.mn.us/",
         "parcel": "R12.10.18.451.001",
-        "status": "unknown"
+        "status": "Sorry, you have been blocked"
     },
     28: {
         "website": "http://www.co.carver.mn.us/home",
+        "website:":"https://publicaccess.carvercountymn.gov/search/commonsearch.aspx?mode=combined",
         "parcel": "75.3150015",
-        "status": "unknown"
+        "status": "pending"
     },
     29: {
         "website": "http://www.co.cass.mn.us/government/county_directory/auditor",
         "parcel": "34-029-4205",
-        "status": "unknown"
+        "status": "Request Blocked"
     },
     30: {
         "website": "http://www.co.chisago.mn.us/",
         "parcel": "160006000",
-        "status": "unknown"
+        "status": "not able to find the website for info"
     },
     31: {
         "website": "http://crowwing.us/",
+        "website1": "https://propertyinformation.crowwing.gov/search/commonsearch.aspx?mode=realprop",
         "parcel": "20080619",
-        "status": "unknown"
+        "status": "pending"
     },
     32: {
         "website": "https://www.co.dakota.mn.us/Pages/default.aspx",
         "parcel": "02-48750-01-061",
-        "status": "unknown"
+        "status": "pending : diffcult"
     },
     33: {
         "website": "http://www.co.dodge.mn.us/",
         "parcel": "R 12.016.0301",
-        "status": "unknown"
+        "status": "403 Forbidden"
     },
     34: {
         "website": "https://www.douglascountymn.gov/",
         "parcel": "12-0850-035",
-        "status": "unknown"
+        "status": "This site can't be reached"
     },
     35: {
         "website": "http://www.co.fillmore.mn.us/",
         "parcel": "R17.0336.000",
-        "status": "unknown"
+        "status": "403 Forbidden"
     },
     36: {
         "website": "https://www.co.goodhue.mn.us/149/Property-Tax-Information",
+        "website": "https://publicaccess.goodhuecountymn.gov/search/commonsearch.aspx?mode=realprop",
         "parcel": "551330010",
-        "status": "unknown"
+        "status": "pending"
     },
     37: {
         "website": "http://www.hennepin.us/",
+        "website":"https://www16.co.hennepin.mn.us/pins/",
         "parcel": "26-029-24-23-0147",
-        "status": "unknown"
+        "status": "pending, bit diffrent"
     },
     38: {
         "website": "https://www.co.houston.mn.us/departments/auditor-treasurer/",
+        "website":"https://beacon.schneidercorp.com/?site=HoustonCountyMN",
         "parcel": "R04.0005.000",
-        "status": "unknown"
+        "status": "pending bit diff"
     },
     39: {
         "website": "http://www.co.isanti.mn.us/isanti",
+        "website": "https://mn-isanti.manatron.com/Default.aspx",
         "parcel": "13.105.0020",
-        "status": "unknown"
+        "status": "pending : diff"
     },
     40: {
         "website": "https://www.co.itasca.mn.us/177/AuditorTreasurers-Office",
+        "website":"https://parcelinfo.com/parcels/", 
         "parcel": "85-027-3465",
-        "status": "unknown"
+        "status": "pending diff"
     },
     41: {
         "website": "http://www.kanabeccounty.org/",
