@@ -558,41 +558,44 @@ new_data_o13 = {
     5: {
         # "website": "http://www.townofbeekman.com/",
         "website":"https://egov.basgov.com/beekman/",
-        "parcel": "132200-6659-00-152942-0000", 
-        "status": "NOT WORKING : not able to click the correct input box."
+        "parcel11": "132200-6659-00-152942-0000", 
+        "parcel":"6758-01-347931-0000",
+        "status": "NOT WORKING : not able to click the correct input box.",
+        "status1": "Working, now change the web & parcel as correct and update prompt: spend: 1hour. "
     },
     6: {
         "website": "https://www.lagrangeny.gov/departments/tax-collections",
         "parcel": "133400-6361-03-068270-0000",
-        "status": "website not open"
+        "status": "website not open : 403 Forbidden"
     },
     7: {
         "website": "https://www.arlingtonschools.org/domain/80",
         "parcel": "134400-6363-02-565716-0000",
-        "status": "unknown"
+        "status": "This site can;t be reached"
     },
     8: {
-        "website": "http://www.townofpoughkeepsie.com/",
-        "parcel": "134689-6161-08-908870-0000",
-        "status": "unknown"
+        "website11": "http://www.townofpoughkeepsie.com/",
+        "website":"https://egov.basgov.com/TownofPoughkeepsie/",
+        "parcel11": "134689-6161-08-908870-0000",
+        "parcel":"6162-20-878175-0000",
+        "status": "working : now change the web & parcel as correct and update prompt "
     },
     9: {
         # "website": "https://www.hydeparkny.us/168/Receiver-of-Taxes",
         "website": "https://egov.basgov.com/hydepark/",
         "parcel": "6163-06-440867-0000",
-        "parcel": "133200-6165-01-454644-0000",
-        
-        "status": "working: some time clicking the : Parcel Access button. need to change the  parcel number and website."
+        "parcel111": "133200-6165-01-454644-0000",
+        "status": "drop down is not working properly. working: some time clicking the : Parcel Access button. need to change the  parcel number and website."
     },
     10: {
         "website": "https://eastfishkillny.gov/receiver-of-taxes/",
         "parcel": "132800-6358-02-692561-0000",
-        "status": "website blocked : 403 Forbidden"
+        "status": "website blocked : 403 Forbidden, also not able to find exact website."
     },
     11: {
         "website": "http://www.fishkill-ny.gov/",
+        "web":"https://egov.basgov.com/TownofFishkill/",
         "parcel": "6155-03-406341-0000",
-        
         "parcel1": "133000 6255-01-131658-0000",
         "status": "working parcel number is not correct. "
     },
@@ -602,16 +605,18 @@ new_data_o13 = {
         "status": "403 Forbidden" 
     },
     13: {
-        "website": "https://www.townofconcordny.com",
+        # "website": "https://www.townofconcordny.com",
+        # "website":"https://nytaxglance.com/tax/year.php",
+        "website": "https://www.townofconcordny.com/taxcollector.php",
         "parcel": "274.02-1-14",
         "parcel1": "143400 243.00-3-17.1",
         "status": "working, parcel is not correct."
     },
     14: {
-        "website": "https://www.kpb.us/finance-dept/property-tax-and-collections",
-        "website1": "https://kpb.publicaccessnow.com/PropertyTax/TaxSearch.aspx",
+        "website": "https://kpb.publicaccessnow.com/PropertyTax/TaxSearch.aspx",
+        # "website": "https://www.kpb.us/finance-dept/property-tax-and-collections",
         "parcel": "5914036",
-        "status": "working, sometime button is not getting activate. "
+        "status": "working,  "
     },
     15: {
         "website": "http://www.independencecounty.com/",
@@ -645,17 +650,17 @@ new_data_o13 = {
         "status": "catalis comman website will work"
     },
     21: {
-        "website": "http://www.lagrangeky.net",
-        "website1":"https://lagrange.oldham.ky.pontemsoftware.com/",
+        # "website": "http://www.lagrangeky.net",
+        "website":"https://lagrange.oldham.ky.pontemsoftware.com/",
         "parcel": "47-00-00-29A",
-        "status": "pending"
+        "status": "working, update prompt : 30 min."
     },
     22: {
-        "website": "http://www.scarboroughmaine.org/",
-        "website":"https://scarboroughme.munisselfservice.com/css/citizens/PersonalProperty/Default.aspx",
+        # "website": "http://www.scarboroughmaine.org/",
+        # "website":"https://scarboroughme.munisselfservice.com/css/citizens/PersonalProperty/Default.aspx",
         "website":"https://scarboroughme.munisselfservice.com/css/citizens/RealEstate/Default.aspx",
         "parcel": "U044017A",
-        "status": "pending"
+        "status": "working.."
     },
     23: {
         "website": "http://www.anokacountymn.gov",
@@ -668,10 +673,10 @@ new_data_o13 = {
         "status": "unknown : asking for sign in"
     },
     25: {
-        "website": "http://www.co.benton.mn.us/",
+        # "website": "http://www.co.benton.mn.us/",
         "website":"https://property.bentoncountymn.gov/search/commonsearch.aspx?mode=realprop",
         "parcel": "17.02440.00",
-        "status": "pending"
+        "status": "working, improve the prompt.."
     },
     26: {
         "website": "https://bigstonecounty.gov/departments/auditor-treasurer/",
@@ -684,10 +689,10 @@ new_data_o13 = {
         "status": "Sorry, you have been blocked"
     },
     28: {
-        "website": "http://www.co.carver.mn.us/home",
+        # "website": "http://www.co.carver.mn.us/home",
         "website:":"https://publicaccess.carvercountymn.gov/search/commonsearch.aspx?mode=combined",
         "parcel": "75.3150015",
-        "status": "pending"
+        "status": "working, fine.."
     },
     29: {
         "website": "http://www.co.cass.mn.us/government/county_directory/auditor",
@@ -700,7 +705,7 @@ new_data_o13 = {
         "status": "not able to find the website for info"
     },
     31: {
-        "website": "http://crowwing.us/",
+        # "website": "http://crowwing.us/",
         "website1": "https://propertyinformation.crowwing.gov/search/commonsearch.aspx?mode=realprop",
         "parcel": "20080619",
         "status": "pending"

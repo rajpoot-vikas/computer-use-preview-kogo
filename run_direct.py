@@ -15,7 +15,7 @@
 import os
 from agent import BrowserAgent
 from computers import BrowserbaseComputer, PlaywrightComputer
-from utils.user_prompt import USER_FLEXIBLE_SPLIT_PARCEL_PROMPT
+from utils.user_prompt import TAX_COUNTY_PROMPT
 import dotenv
 import sys
 dotenv.load_dotenv()
@@ -40,7 +40,7 @@ def run(initial_url: str, parcel_number: str, search_year: str, state: str, coun
     Run the browser agent with predefined configuration variables.
     Modify the variables at the top of this file to change behavior.
     """
-    query = USER_FLEXIBLE_SPLIT_PARCEL_PROMPT.format(
+    query = TAX_COUNTY_PROMPT.format(
         parcel_number=parcel_number, 
         search_year=search_year,
         state=state,
@@ -84,22 +84,20 @@ if __name__ == "__main__":
     # Get index from command line argument, default to 1
     # global index
     # for index in range(1, 52):
-    index = 5
+    index = 25
     
     print("\n\n\n\n") 
-    print("#"*100) 
     print("#"*100) 
     print(f" \033[92m STARTING OF NEW RECORDING INDEX {index} \033[0m") 
     initial_url = new_data_o13[index]["website"] 
     parcel_number = new_data_o13[index]["parcel"]
     
-    search_year = "none"
+    search_year = "2025"
     state = "none"  # Or get from your data source
     county = "none" # Or get from your data source
     
     run(initial_url, parcel_number, search_year, state, county)
 
-    print("#"*100) 
     print("#"*100) 
 
 
