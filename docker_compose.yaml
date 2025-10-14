@@ -1,0 +1,50 @@
+services:
+  browsey:
+    hostname: browsey
+    build:
+      context: /Users/vikasrajpoot/kogo/kogoos_browsey
+      dockerfile: /Users/vikasrajpoot/kogo/kogoos_browsey/services/server/Dockerfile
+    ports:
+      - "5010:5010"
+
+    environment:
+      - KOGO_CONF=/app/.env
+      - KOGO_ENC=/app/.enc
+
+    volumes:
+      - /Users/vikasrajpoot/kogo/kogoos_setup/conf/.env:/app/.env:ro
+      - /Users/vikasrajpoot/kogo/kogoos_setup/conf/.enc:/app/.enc:rw
+    networks:
+      - kogoos-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "vault:host-gateway"
+      - "mongo:host-gateway"
+
+
+
+  # logrotate:
+  #   image: blacklabelops/logrotate
+  #   container_name: kogoos-logrotate
+  #   volumes:
+  #     - ./persistent_logs:/logs
+  #   environment:
+  #     LOGS_DIRECTORIES: "/logs"
+  #     LOGROTATE_INTERVAL: daily
+  #     LOGROTATE_COPIES: 7
+  #     LOGROTATE_SIZE: 50M
+
+
+  nginx:
+    build:
+      dockerfile: ./nginx/Dockerfile
+      context: ./
+    ports:
+      - "8080:80"
+    depends_on:
+      - browsey
+
+networks:
+  kogoos-network:
+    # driver: bridge
+    external: true
