@@ -52,7 +52,7 @@ Flexibly navigate diverse tax websites to find and view parcel details for {parc
 6.  **Locate Tax Information:**
    - **Goal:** From the parcel details page, find the section or page with tax payment information.
    - **Actions:** First, check if tax information (like "Amount Due", "Total Tax", "Taxes Payable",, ) is already visible on the current page. If it is, this step is complete. 
-     If not, look for and click on links, tabs, or buttons labeled "Taxes", "Property Tax Information", "Property Taxes Due"
+     If not, look for and click on links, tabs, or buttons labeled "Taxes", "Tax Statement" "Property Tax Information", "Property Taxes Due"
      "Tax Bill", "Tax INFO", "Payments", "Amount Due", "Payable", "Billing",  
      or similar terms to navigate to the tax information page. This may require navigating through one or more pages.
 

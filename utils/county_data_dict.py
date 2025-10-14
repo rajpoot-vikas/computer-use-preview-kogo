@@ -706,14 +706,15 @@ new_data_o13 = {
     },
     31: {
         # "website": "http://crowwing.us/",
-        "website1": "https://propertyinformation.crowwing.gov/search/commonsearch.aspx?mode=realprop",
+        "website": "https://propertyinformation.crowwing.gov/search/commonsearch.aspx?mode=realprop",
         "parcel": "20080619",
         "status": "pending"
     },
     32: {
-        "website": "https://www.co.dakota.mn.us/Pages/default.aspx",
+        # "website": "https://www.co.dakota.mn.us/Pages/default.aspx",
+        "website":"https://gis.co.dakota.mn.us/Webappbuilder/PropertyInformationPublic/index.html",
         "parcel": "02-48750-01-061",
-        "status": "pending : diffcult"
+        "status": "partially working : difficult"
     },
     33: {
         "website": "http://www.co.dodge.mn.us/",

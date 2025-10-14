@@ -84,7 +84,7 @@ if __name__ == "__main__":
     # Get index from command line argument, default to 1
     # global index
     # for index in range(1, 52):
-    index = 25
+    index = 32
     
     print("\n\n\n\n") 
     print("#"*100) 
