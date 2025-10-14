@@ -530,7 +530,6 @@ county_data_mixed_status = {
     },
 }
 
-# ...existing code...
 
 new_data_o13 = {
     
@@ -808,12 +807,95 @@ new_data_o13 = {
     },
     50: {
         "website": "http://www.co.nobles.mn.us/",
-        "parcel": "31-0621-000",
+        "website": "https://tax.cptmn.us/PTaxPortal/#/parcelSearch/Nobles",
+        "parcel": "310621000",
         "status": "unknown"
     },
     51: {
-        "website": "https://www.co.olmsted.mn.us/Pages/default.aspx",
-        "parcel": "RP 74.35.43.017897",
-        "status": "unknown"
+        # "website": "https://www.co.olmsted.mn.us/Pages/default.aspx",
+        "website":"https://publicaccess.co.olmsted.mn.us/search/commonsearch.aspx?mode=realprop",
+        # "parcel": "RP 74.35.43.017897",
+        "parcel": "74.35.43.017897",
+        "status": "pending"
     }
 }
+
+
+
+working_data_o14 = {
+    1: {
+        "website": "https://www.ri.gov/app/pawtucket/tax", 
+        "parcel": "46050",
+        "status": "working"
+    },
+    2: {
+        "website": "https://www.seasideparknj.org/",
+        "parcel": "Block 14 Lot 3", 
+        "status": "working"
+    },
+    3: {
+        "website": "https://egov.basgov.com/beekman/",
+        "parcel11": "132200-6659-00-152942-0000", 
+        "parcel": "6758-01-347931-0000",
+        "status": "NOT WORKING : not able to click the correct input box.",
+        "status1": "Working, now change the web & parcel as correct and update prompt: spend: 1hour. "
+    },
+    4: {
+        "website11": "http://www.townofpoughkeepsie.com/",
+        "website": "https://egov.basgov.com/TownofPoughkeepsie/",
+        "parcel11": "134689-6161-08-908870-0000",
+        "parcel": "6162-20-878175-0000",
+        "status": "working : now change the web & parcel as correct and update prompt "
+    },
+    5: {
+        "website": "https://egov.basgov.com/hydepark/",
+        "parcel": "6163-06-440867-0000",
+        "parcel111": "133200-6165-01-454644-0000",
+        "status": "drop down is not working properly. working: some time clicking the : Parcel Access button. need to change the  parcel number and website."
+    },
+    6: {
+        "website": "http://www.fishkill-ny.gov/",
+        "web": "https://egov.basgov.com/TownofFishkill/",
+        "parcel": "6155-03-406341-0000",
+        "parcel1": "133000 6255-01-131658-0000",
+        "status": "working parcel number is not correct. "
+    },
+    7: {
+        "website": "https://www.townofconcordny.com/taxcollector.php",
+        "parcel": "274.02-1-14",
+        "parcel1": "143400 243.00-3-17.1",
+        "status": "working, parcel is not correct."
+    },
+    8: {
+        "website": "https://kpb.publicaccessnow.com/PropertyTax/TaxSearch.aspx",
+        "parcel": "5914036",
+        "status": "working,  "
+    },
+    9: {
+        "website": "https://lagrange.oldham.ky.pontemsoftware.com/",
+        "parcel": "47-00-00-29A",
+        "status": "working, update prompt : 30 min."
+    },
+    10: {
+        "website": "https://scarboroughme.munisselfservice.com/css/citizens/RealEstate/Default.aspx",
+        "parcel": "U044017A",
+        "status": "working.."
+    },
+    11: {
+        "website": "https://property.bentoncountymn.gov/search/commonsearch.aspx?mode=realprop",
+        "parcel": "17.02440.00",
+        "status": "working, improve the prompt.."
+    },
+    12: {
+        "website:": "https://publicaccess.carvercountymn.gov/search/commonsearch.aspx?mode=combined",
+        "parcel": "75.3150015",
+        "status": "working, fine.."
+    },
+    13: {
+        "website": "https://gis.co.dakota.mn.us/Webappbuilder/PropertyInformationPublic/index.html",
+        "parcel": "02-48750-01-061",
+        "status": "partially working : difficult"
+    }
+}
+
+
