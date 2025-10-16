@@ -75,7 +75,7 @@ def run(initial_url: str, part_no: str, ) -> int:
 if __name__ == "__main__":
     
     initial_url = "https://static.ilsmart.com/pages/ilslogin.htm"
-    part_no = "521100"
+    # part_no = "521100"
     part_no = "4383121"
  
     run(initial_url, part_no)
