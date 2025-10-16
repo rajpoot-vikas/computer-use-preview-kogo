@@ -49,38 +49,38 @@ PREDEFINED_COMPUTER_USE_FUNCTIONS = [
     "drag_and_drop",
 ]
 
-def get_data_from_last_page() -> str:
-    """
-    Extract structured data from the current page using Gemini.
+# def get_data_from_last_page() -> str:
+#     """
+#     Extract structured data from the current page using Gemini.
 
-    Args:
-        extraction_goal: What to extract from the page
-        fields: List of field names to extract (e.g., ['parcel_number', 'owner_name'])
+#     Args:
+#         extraction_goal: What to extract from the page
+#         fields: List of field names to extract (e.g., ['parcel_number', 'owner_name'])
 
-    Returns:
-        Dictionary with extracted data in JSON format
-    """
-    try:
-        # Wait for page to settle
-        time.sleep(2)
+#     Returns:
+#         Dictionary with extracted data in JSON format
+#     """
+#     try:
+#         # Wait for page to settle
+#         time.sleep(2)
 
-        # Get page content as HTML
-        html_content = self._page.content()
+#         # Get page content as HTML
+#         html_content = self._page.content()
 
-        # Convert HTML to Markdown (simplified extraction)
-        # try:
+#         # Convert HTML to Markdown (simplified extraction)
+#         # try:
 
-        content = markdownify.markdownify(html_content, strip=["a", "img"])
-        for iframe in self._page.frames:
-            if iframe.url != self._page.url and not iframe.url.startswith('data:'):
-                content += f'\n\nIFRAME {iframe.url}:\n'
-                content += markdownify.markdownify(iframe.content())
+#         content = markdownify.markdownify(html_content, strip=["a", "img"])
+#         for iframe in self._page.frames:
+#             if iframe.url != self._page.url and not iframe.url.startswith('data:'):
+#                 content += f'\n\nIFRAME {iframe.url}:\n'
+#                 content += markdownify.markdownify(iframe.content())
 
 
-        return content 
-    except Exception as e:
-        termcolor.cprint(f"❌ Error extracting data: {e}", color="red")
-        return {"error": str(e), "url": self._page.url}
+#         return content 
+#     except Exception as e:
+#         termcolor.cprint(f"❌ Error extracting data: {e}", color="red")
+#         return {"error": str(e), "url": self._page.url}
 
 
 console = Console()
@@ -447,17 +447,17 @@ class BrowserAgent:
         while status == "CONTINUE":
             status = self.run_one_iteration()
         
-        # print("new one."*100)
-        fields = {
-            "date": "date of amount due, payment due date, deadline, due by date, payable by, payment deadline, or maturity date",
-            "baseAmount": "base amount, bill amount, tax amount, principal amount, original amount, assessed value, taxable amount, gross amount, or amount before any adjustments or discounts",
-            "totalAmount": "total amount due, total dues, amount payable, final amount, net amount, balance due, outstanding amount, total payment, sum due, or final amount that needs to be paid including all charges",
-            "address": "address of payee, property address, billing address, mailing address, service address, location, property location, site address, or premises address",
-            "parcel_number": "parcel number, parcel ID, property identification number, property ID, file reference number, account number, tax ID, assessment number, property number, or folio number", 
-            "discount_percentage": "discount percentage, discount rate, reduction percentage, tax relief rate, early payment discount rate, or percentage off applied on the tax amount or bill amount",
-            "discount_amount": "discount amount, reduction amount, tax relief amount, savings amount, deduction amount, rebate amount, early payment discount, or amount reduced from the total dues"
-        } 
-        self._browser_computer.get_data_from_last_page(fields=fields)
+        # # print("new one."*100)
+        # fields = {
+        #     "date": "date of amount due, payment due date, deadline, due by date, payable by, payment deadline, or maturity date",
+        #     "baseAmount": "base amount, bill amount, tax amount, principal amount, original amount, assessed value, taxable amount, gross amount, or amount before any adjustments or discounts",
+        #     "totalAmount": "total amount due, total dues, amount payable, final amount, net amount, balance due, outstanding amount, total payment, sum due, or final amount that needs to be paid including all charges",
+        #     "address": "address of payee, property address, billing address, mailing address, service address, location, property location, site address, or premises address",
+        #     "parcel_number": "parcel number, parcel ID, property identification number, property ID, file reference number, account number, tax ID, assessment number, property number, or folio number", 
+        #     "discount_percentage": "discount percentage, discount rate, reduction percentage, tax relief rate, early payment discount rate, or percentage off applied on the tax amount or bill amount",
+        #     "discount_amount": "discount amount, reduction amount, tax relief amount, savings amount, deduction amount, rebate amount, early payment discount, or amount reduced from the total dues"
+        # } 
+        self._browser_computer.get_data_from_last_page()
         self._browser_computer.save_last_page_as_pdf()        
 
     def denormalize_x(self, x: int) -> int:

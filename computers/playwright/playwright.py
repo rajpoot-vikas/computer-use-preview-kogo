@@ -25,10 +25,13 @@ from ..computer import (
     EnvState,
 )
 from ..data_extraction_prompt import EXTRACTION_PROMPT_V3
-from utils.gemini_extraction import extract_data_with_gemini
+# from utils.gemini_extraction import extract_data_with_gemini
 import playwright.sync_api
 from playwright.sync_api import sync_playwright
 from typing import Literal, Dict, Any
+
+import dotenv
+dotenv.load_dotenv() 
 
 # Define a mapping from the user-friendly key names to Playwright's expected key names.
 # Playwright is generally good with case-insensitivity for these, but it's best to be canonical.
@@ -452,7 +455,8 @@ class PlaywrightComputer(Computer):
             
             from google import genai
 
-            client = genai.Client()
+            client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"),
+)
 
             response = client.models.generate_content(
                 model="gemini-2.5-flash",
