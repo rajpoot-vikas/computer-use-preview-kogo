@@ -812,8 +812,10 @@ new_data_o13 = {
         "status": "unknown"
     },
     51: {
-        "website": "https://www.co.olmsted.mn.us/Pages/default.aspx",
-        "parcel": "RP 74.35.43.017897",
+        # "website": "https://www.co.olmsted.mn.us/Pages/default.aspx",
+        "website": "https://publicaccess.co.olmsted.mn.us/search/commonsearch.aspx?mode=realprop",
+        "parcel": "74.35.43.017897",
         "status": "unknown"
     }
 }
+
