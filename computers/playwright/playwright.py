@@ -25,6 +25,7 @@ from ..computer import (
     EnvState,
 )
 from ..data_extraction_prompt import EXTRACTION_PROMPT_V3
+from utils.gemini_extraction import extract_data_with_gemini
 import playwright.sync_api
 from playwright.sync_api import sync_playwright
 from typing import Literal, Dict, Any
@@ -415,8 +416,6 @@ class PlaywrightComputer(Computer):
 
     def get_data_from_last_page(
         self,
-        extraction_goal: str = "Extract all relevant information from the page",
-        fields: Dict[str, str] = None,
     ) -> Dict[str, Any]:
         """
         Extract structured data from the current page using Gemini.
@@ -436,130 +435,52 @@ class PlaywrightComputer(Computer):
             html_content = self._page.content()
 
             # Convert HTML to Markdown (simplified extraction)
-            # try:
-            import markdownify
+            try:
+                import markdownify
 
-            content = markdownify.markdownify(html_content, strip=["a", "img"])
-            for iframe in self._page.frames:
-                if iframe.url != self._page.url and not iframe.url.startswith('data:'):
-                    content += f'\n\nIFRAME {iframe.url}:\n'
-                    content += markdownify.markdownify(iframe.content())
+                content = markdownify.markdownify(html_content, strip=["a", "img"])
+                for iframe in self._page.frames:
+                    if iframe.url != self._page.url and not iframe.url.startswith('data:'):
+                        content += f'\n\nIFRAME {iframe.url}:\n'
+                        content += markdownify.markdownify(iframe.content())
+            except ImportError:
+                termcolor.cprint("`markdownify` not installed. Please install it with `pip install markdownify`", color="red")
+                return {"error": "markdownify not installed"}
 
-            # Save markdown content to a file 
-            timestamp = time.strftime("%Y%m%d_%H%M%S")
-            md_file_path = f"./data/markdown/page_{timestamp}.md"
-            md_file_path_obj = Path(md_file_path)
-            md_file_path_obj.parent.mkdir(parents=True, exist_ok=True)
-            with open(md_file_path_obj, "w", encoding="utf-8") as f:
-                f.write(content)
-        # except ImportError:
-            # Fallback to HTML if markdownify not available
-            # print("falling back to html")
-            # content = html_content
-
-            # If no fields specified, return markdown content
-            if not fields:
-                termcolor.cprint("📄 Extracted page content", color="green")
-                return {"content": content, "url": self._page.url}
-
-            # Use Gemini for structured extraction
+            
+            print("content : ", content) 
+            
             from google import genai
 
-            api_key = os.getenv("GEMINI_API_KEY")
-            if not api_key:
-                termcolor.cprint(
-                    "⚠️  GEMINI_API_KEY not set, returning raw content", color="yellow"
-                )
-                return {"content": content, "url": self._page.url}
-
-            client = genai.Client(api_key=api_key)
-
-            # Create prompt using EXTRACTION_PROMPT_V3 template
-            # Save prompt to file
-            timestamp = time.strftime("%Y%m%d_%H%M%S")
-            prompt_file_path = f"./data/prompts/extraction_prompt_{timestamp}.txt"
-            prompt_file_path_obj = Path(prompt_file_path)
-            prompt_file_path_obj.parent.mkdir(parents=True, exist_ok=True)
-            
-            # Format the EXTRACTION_PROMPT_V3 with required variables
-            prompt = EXTRACTION_PROMPT_V3.format(
-                # parcelNumber=self._parcel_number or "",
-                data=content
-            )
-            
-            with open(prompt_file_path_obj, "w", encoding="utf-8") as f:
-                f.write(prompt)
+            client = genai.Client()
 
             response = client.models.generate_content(
-                model="gemini-2.0-flash", contents=prompt
+                model="gemini-2.5-flash",
+                contents=""" 
+                #Instructions: You are an expert data extractor. 
+                Your task is to extract information from the provided text content based on the user's goal.
+                Extract the Parts Availability numbers. Extract row of Companies and Total Inquiries from the table.  
+            """
             )
             
+            print(response.text) 
             
-            print("response : ", response)
-            print("response : ", response.text) 
+            print("\n \n \n") 
+            print("*"*80) 
+            print(response.text) 
+            print("*"*80) 
 
-            # # Parse JSON from response
-            # json_text = response.text.strip()
-            
-            # # Remove markdown code block markers
-            # if json_text.startswith("```json"):
-            #     json_text = json_text[7:]
-            # elif json_text.startswith("```"):
-            #     json_text = json_text[3:]
-            
-            # if json_text.endswith("```"):
-            #     json_text = json_text[:-3]
-            
-            # Strip again to remove any whitespace after removing markers
-            # json_text = json_text.strip()
-            
-            # Find the actual JSON object/array start
-            # Handle cases where there might be text before the JSON
-            # json_start = -1
-            # for i, char in enumerate(json_text):
-            #     if char in ['{', '[']:
-            #         json_start = i
-            #         break
-            
-            # if json_start > 0:
-            #     json_text = json_text[json_start:]
-            # elif json_start == -1:
-            #     # No JSON found, raise an error
-            #     raise ValueError(f"No JSON object found in response. Response text: {json_text[:200]}")
+            # Extract data using Gemini
+            extracted_data = extract_data_with_gemini(
+                content=content,
+             )
 
-            # extracted_data = json.loads(json_text.strip())
-            # extracted_data["url"] = self._page.url
+            return extracted_data
 
-            # print("*"*100) 
-            # print("\033[92m extracted data : \n ", extracted_data, "\033[0m")
-            # print("*"*100) 
-            
-            termcolor.cprint(
-                # f"📊 Extracted structured data: {list(extracted_data.keys())}",
-                f"📊 Extracted structured data: {response}",
-                color="green",
-            )
-            
-            timestamp = time.strftime("%Y%m%d_%H%M%S")
-            ex_data = f"./data/ext/extraction_data_{timestamp}.txt"
-            ex_data_obj = Path(ex_data)
-            ex_data_obj.parent.mkdir(parents=True, exist_ok=True)
-            
-            with open(ex_data_obj, "w", encoding="utf-8") as f:
-                f.write(str(response))
-        
-            return response
-
-        except json.JSONDecodeError as e:
-            termcolor.cprint(f"⚠️  Failed to parse JSON: {e}", color="yellow")
-            return {
-                "content": content,
-                "url": self._page.url,
-                "error": "Failed to parse JSON",
-            }
         except Exception as e:
             termcolor.cprint(f"❌ Error extracting data: {e}", color="red")
             return {"error": str(e), "url": self._page.url}
+
 
     def save_last_page_as_pdf(
         self, file_path: str = None, return_base64: bool = False
@@ -623,4 +544,6 @@ class PlaywrightComputer(Computer):
             error_msg = f"Failed to save PDF: {str(e)}"
             termcolor.cprint(f"❌ {error_msg}", color="red")
             return {"success": False, "error": error_msg, "url": self._page.url}
+
+
 

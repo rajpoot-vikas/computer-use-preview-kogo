@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import os
-from typing import Literal, Optional, Union, Any
+from typing import Literal, Optional, Union, Any, Dict  
 from google import genai
 from google.genai import types
 import termcolor
@@ -24,6 +24,8 @@ from google.genai.types import (
     FunctionResponse,
     FinishReason,
 )
+import markdownify
+
 import time
 from rich.console import Console
 from rich.table import Table
@@ -47,6 +49,39 @@ PREDEFINED_COMPUTER_USE_FUNCTIONS = [
     "drag_and_drop",
 ]
 
+def get_data_from_last_page() -> str:
+    """
+    Extract structured data from the current page using Gemini.
+
+    Args:
+        extraction_goal: What to extract from the page
+        fields: List of field names to extract (e.g., ['parcel_number', 'owner_name'])
+
+    Returns:
+        Dictionary with extracted data in JSON format
+    """
+    try:
+        # Wait for page to settle
+        time.sleep(2)
+
+        # Get page content as HTML
+        html_content = self._page.content()
+
+        # Convert HTML to Markdown (simplified extraction)
+        # try:
+
+        content = markdownify.markdownify(html_content, strip=["a", "img"])
+        for iframe in self._page.frames:
+            if iframe.url != self._page.url and not iframe.url.startswith('data:'):
+                content += f'\n\nIFRAME {iframe.url}:\n'
+                content += markdownify.markdownify(iframe.content())
+
+
+        return content 
+    except Exception as e:
+        termcolor.cprint(f"❌ Error extracting data: {e}", color="red")
+        return {"error": str(e), "url": self._page.url}
+
 
 console = Console()
 
@@ -58,7 +93,6 @@ FunctionResponseT = Union[EnvState, dict]
 def multiply_numbers(x: float, y: float) -> dict:
     """Multiplies two numbers."""
     return {"result": x * y}
-
 
 class BrowserAgent:
     
@@ -88,7 +122,7 @@ class BrowserAgent:
                 ],
             )
         ]
-
+    
         # Exclude any predefined functions here.
         excluded_predefined_functions = []
 
